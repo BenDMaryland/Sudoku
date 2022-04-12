@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
-import Cell from "./Cell";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Set from "./Set";
+
 import styled from "styled-components";
 
 function Board() {
-  const [cells, setcells] = useState([]);
+  const [sets, setSets] = useState([]);
 
   useEffect(() => {
-      setcells(cells=>cells=[])
+      setSets(sets=>sets=[])
 
-      for (let i = 0; i < 81; i++) {
+      for (let i = 0; i < 9; i++) {
 
-          setcells(   (cells) =>  (cells = [...cells, <Cell key={i}  i={i } />])   );}
+          setSets(   (sets) =>  (sets = [...sets, <Set key={i}  i={i } />])   );}
         
 
     
@@ -21,7 +21,7 @@ function Board() {
   return (
     <BoardStyle>
 
-      {cells.map((cell) => cell)}
+      {sets.map((set) => set)}
     </BoardStyle>
   );
 }
@@ -30,7 +30,7 @@ export default Board;
 
 const BoardStyle = styled.div`
   display: grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   height: 60px;
   width: 60px;
 `;

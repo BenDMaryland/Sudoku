@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from "styled-components";
 
-function Cell({i}) {
+function Cell({ number }) {
   return (
-<CellStyle onClick={()=>console.log("ddddd",i)}>{i} </CellStyle>
-  )
+    <CellStyle onClick={() => console.log("ddddd", number)}>
+      {number}{" "}
+    </CellStyle>
+  );
 }
 
 export default Cell
