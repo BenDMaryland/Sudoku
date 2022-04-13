@@ -113,23 +113,46 @@ function Board() {
             array = array.filter(string => string != "")
             return new Set(array).size !== array.length;
         }
- console.log(result)
+        console.log(result)
         return result
     }
 
     function getRandomInt() {
-        return Math.floor(Math.random() * 9);
+        return Math.floor(Math.random() * (10 - 1) + 1)
+    }
+
+    function checkDone() {
+let result = true
+        for (let i = 0; i != 9; i++) {
+            boardNums[i].find(num=> num ==="") && (result = false)
+
+        }
+        return result
     }
 
 
+    useEffect(() => {
 
-useEffect(() => {
+        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))
 
-    setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))
+        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()])) 
+        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))
+
+        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))   
+           setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))
+
+        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()])) 
+
+//         while (checkDone()) {
+//             x = getRandomInt()
+//             y = getRandomInt()
+//             z = getRandomInt()
+
+// }
+
+    }, [])
 
 
-    
-}, [])
 
     useEffect(() => {
         setSquares((squares) => (squares = []));
@@ -141,7 +164,7 @@ useEffect(() => {
         }
     }, []);
 
-  if (squares ===[]) return null
+    if (squares === []) return null
     console.log("i")
     return <BoardStyle>{squares.map((square) => square)}</BoardStyle>;
 }
