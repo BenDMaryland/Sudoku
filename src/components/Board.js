@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Set from "./Set";
+import Square from "./Square";
 
 import styled from "styled-components";
 
 function Board() {
-    const [sets, setSets] = useState([]);
+    const [squares, setSquares] = useState([]);
+
 
     const [boardNums, setBoardNums] = useState([
-        [".", ".", ".", ".", ".", ".", ".", ".", "."],
+        ["", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", ""],
         ["", "", "", "", "", "", "", "", ""],
@@ -18,78 +19,131 @@ function Board() {
         ["", "", "", "", "", "", "", "", ""],
     ]);
 
-    let x = [
-        ["0", "1", "2", "3", "4", "5", "6", "7", "8"],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-    ];
-
-
 
     function validHandler(array) {
-        let num;
+
         let row1 = [];
         let row2 = [];
         let row3 = [];
         let row4 = [];
-        let five = [];
-        let six = [];
-        let seven = [];
-        let eight = [];
-        let nine = [];
+        let row5 = [];
+        let row6 = [];
+        let row7 = [];
+        let row8 = [];
+        let row9 = [];
+
+        let col1 = [];
+        let col2 = [];
+        let col3 = [];
+        let col4 = [];
+        let col5 = [];
+        let col6 = [];
+        let col7 = [];
+        let col8 = [];
+        let col9 = [];
+
+        let result = true
+
 
         for (let i = 0; i != 9; i++) {
-            ///checking sets
-           // console.log(array[0], i )
-           // console.log(hasDuplicates(array[0]))
+
+            ///checking squares
+            // console.log(array[0], i)
+            hasDuplicates(array[i]) && (result = false)
 
             for (let e = 0; e != 9; e++) {
-                num = i * 9 + e;
+
                 /// to check Rows we want to check every row3
-                /// that is 0-2 , 3-5 .6-8 of e  but this repeats row3 times
-                /// so if i is 0 -2 then thats row1
                 i < 3 ?
-                    e < 3 ? (row1 = [...row1, num])
-                        : e < 6 ? (row2 = [...row2, num])
-                            : (row3 = [...row3, num])
+                    e < 3 ? (row1 = [...row1, array[i][e]])
+                        : e < 6 ? (row2 = [...row2, array[i][e]])
+                            : (row3 = [...row3, array[i][e]])
                     : i < 6 ?
-                        e < 3 ? (row4 = [...row4, num])
-                            : e < 6 ? (five = [...five, num])
-                                : (six = [...six, num])
+                        e < 3 ? (row4 = [...row4, array[i][e]])
+                            : e < 6 ? (row5 = [...row5, array[i][e]])
+                                : (row6 = [...row6, array[i][e]])
                         :
-                        e < 3 ? (seven = [...seven, num])
-                            : e < 6 ? (eight = [...eight, num])
-                                : (nine = [...nine, num]);
+                        e < 3 ? (row7 = [...row7, array[i][e]])
+                            : e < 6 ? (row8 = [...row8, array[i][e]])
+                                : (row9 = [...row9, array[i][e]]);
+
                 ///to check columns it's every thrird
-                //column 0,3,6 ------- ,1,4,7 , 2,5,8
-                // For i it's the same 0,3,6
+                i % 3 === 0 ?
+                    e % 3 === 0 ? (col1 = [...col1, array[i][e]])
+                        : e % 3 === 1 ? (col2 = [...col2, array[i][e]])
+                            : (col3 = [...col3, array[i][e]])
+                    : i % 3 === 1 ?
+                        e % 3 === 0 ? (col4 = [...col4, array[i][e]])
+                            : e % 3 === 1 ? (col5 = [...col5, array[i][e]])
+                                : (col6 = [...col6, array[i][e]])
+                        :
+                        e % 3 === 0 ? (col7 = [...col7, array[i][e]])
+                            : e % 3 === 1 ? (col8 = [...col8, array[i][e]])
+                                : (col9 = [...col9, array[i][e]]);
+
             }
+
         }
+
+        hasDuplicates(col1) && (result = false)
+        hasDuplicates(col2) && (result = false)
+        hasDuplicates(col3) && (result = false)
+        hasDuplicates(col4) && (result = false)
+        hasDuplicates(col5) && (result = false)
+        hasDuplicates(col6) && (result = false)
+        hasDuplicates(col7) && (result = false)
+        hasDuplicates(col8) && (result = false)
+        hasDuplicates(col9) && (result = false)
+
+        hasDuplicates(row1) && (result = false)
+        hasDuplicates(row2) && (result = false)
+        hasDuplicates(row3) && (result = false)
+        hasDuplicates(row4) && (result = false)
+        hasDuplicates(row5) && (result = false)
+        hasDuplicates(row6) && (result = false)
+        hasDuplicates(row7) && (result = false)
+        hasDuplicates(row8) && (result = false)
+        hasDuplicates(row9) && (result = false)
+
+
+
+
+
+        function hasDuplicates(array) {
+            array = array.filter(string => string != "")
+            return new Set(array).size !== array.length;
+        }
+ console.log(result)
+        return result
     }
 
-    function hasDuplicates(array) {
-        return new Set(array).size !== array.length;
+    function getRandomInt() {
+        return Math.floor(Math.random() * 9);
     }
 
- 
+
+
+useEffect(() => {
+
+    setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))
+
+
+    
+}, [])
 
     useEffect(() => {
-        setSets((sets) => (sets = []));
-  
+        setSquares((squares) => (squares = []));
+
         for (let i = 0; i < 9; i++) {
-            setSets(
-                (sets) => (sets = [...sets, <Set data={data[i]} key={i} i={i} />])
+            setSquares(
+                (squares) => (squares = [...squares, <Square boardNums={boardNums[i]} key={i} i={i} />])
             );
         }
     }, []);
 
-    return <BoardStyle>{sets.map((set) => set)}</BoardStyle>;
+  if (squares ===[]) return null
+    console.log("i")
+    return <BoardStyle>{squares.map((square) => square)}</BoardStyle>;
 }
 
 export default Board;
@@ -101,23 +155,3 @@ const BoardStyle = styled.div`
   height: fit-content;
   width: fit-content;
 `;
-
-const data = [
-    ["", "", "8", "5", "", "9", "", "", ""],
-
-    ["", "", "", "", "1", "", "", "", "6"],
-
-    ["", "", "", "", "", "7", "", "1", ""],
-
-    ["2", "", "5", "", "8", "", "", "6", ""],
-
-    ["", "", "4", "", "5", "", "", "", ""],
-
-    ["9", "", "", "", "", "", "", "", "2"],
-
-    ["", "", "", "", "2", "", "7", "", "1"],
-
-    ["3", "", "", "", "", "", "", "6", ""],
-
-    ["4", "", "", "", "", "", "", "", "9"],
-];
