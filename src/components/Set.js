@@ -17,7 +17,14 @@ const [uniqKey, setuniqKey] = useState(0);
         setcells((cells) => (cells = [...cells, <Cell key={e} number={data[e]} />]))
 
     }
+
+
+
+    
   }, []);
+
+
+
 
 
   return( 
