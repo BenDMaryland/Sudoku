@@ -4,6 +4,9 @@ import Cell from "./Cell";
 
 
 function Set({ i }) {
+const [data, setData] = useState([])
+
+
 
   const [cells, setcells] = useState([]);
 
@@ -11,6 +14,7 @@ function Set({ i }) {
     setcells((cells) => (cells = []));
 
     for (let e = 1; e < 10; e++) {
+        
       setcells((cells) => (cells = [...cells, <Cell key={e} number={i*9+e} />]));
     }
   }, []);
@@ -24,9 +28,10 @@ function Set({ i }) {
 export default Set;
 
 const SetStyle = styled.div`
-  border: solid;
+  border: 2px solid;
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
-  /* height: 60px;
-  width: 60px; */
+  height: fit-content;
+  width: fit-content;
 `;

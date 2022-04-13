@@ -30,7 +30,8 @@ export default Board;
 
 const BoardStyle = styled.div`
   display: grid;
+  border: 3px solid;
   grid-template-columns: repeat(3, 1fr);
-  height: 60px;
-  width: 60px;
+  height: fit-content;
+  width: fit-content;
 `;
