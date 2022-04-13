@@ -14,13 +14,13 @@ const [uniqKey, setuniqKey] = useState(0);
     setcells((cells) => (cells = []));
 
     for (let e = 0; e < 9; e++) {
-        setcells((cells) => (cells = [...cells, <Cell key={e} number={data[e]} />]))
+        setcells((cells) => (cells = [...cells, <Cell key={e}  data={data[e]}number={i *9 +e} />]))
 
     }
 
 
 
-    
+
   }, []);
 
 
