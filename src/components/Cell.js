@@ -5,25 +5,30 @@ function Cell({ number }) {
   const [num, setnum] = useState("");
 
 
-// useEffect(() => {
-// setnum(num=>num=number)
-// }, [])
+useEffect(() => {
+
+setnum(num=>num=number)
+}, [])
 
 
 function numHanlder(e){
+        console.log(e.target.style.color);
 setnum(num=>num = e.target.value)
+e.target.style.color= "blue"
 }
 
 
   return (
     <CellStyle onClick={() => console.log("ddddd", number)}>
 
-      <input value={num} onChange={(e) => numHanlder(e)}></input>
+      <input style={{"color":"black"}} type={number} maxLength={1} value={num} onChange={(e) => numHanlder(e)}></input>
     </CellStyle>
   );
 }
 
 export default Cell;
+
+
 
 const CellStyle = styled.div`
   border: 1px solid;

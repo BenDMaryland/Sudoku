@@ -7,23 +7,16 @@ function Board() {
   const [sets, setSets] = useState([]);
 
   useEffect(() => {
-      setSets(sets=>sets=[])
+    setSets((sets) => (sets = []));
 
-      for (let i = 0; i < 9; i++) {
-
-          setSets(   (sets) =>  (sets = [...sets, <Set key={i}  i={i } />])   );}
-        
-
-    
+    for (let i = 0; i < 9; i++) {
+      setSets(
+        (sets) => (sets = [...sets, <Set data={data[i]} key={i} i={i} />])
+      );
+    }
   }, []);
 
-
-  return (
-    <BoardStyle>
-
-      {sets.map((set) => set)}
-    </BoardStyle>
-  );
+  return <BoardStyle>{sets.map((set) => set)}</BoardStyle>;
 }
 
 export default Board;
@@ -35,3 +28,42 @@ const BoardStyle = styled.div`
   height: fit-content;
   width: fit-content;
 `;
+const data = [
+  ["", "", "8",
+   "5", "", "9", 
+   "", "", ""],
+
+  ["", "", "",
+   "", "1", "", 
+   "", "", "6"],
+
+  ["", "", "", 
+  "", "", "7",
+   "", "1", ""],
+
+
+  ["2", "", "5", 
+  "", "8", "", 
+  "", "6", ""],
+
+  ["", "", "4",
+   "", "5", "",
+    "", "", ""],
+
+  ["9", "", "", 
+  "", "", "", 
+  "", "", "2"],
+
+  ["", "", "",
+   "", "2", "" , 
+   "7", "", "1"],
+
+  ["3", "", "",
+   "", "", "", 
+   "", "","6"],
+
+  ["4", "", "", 
+  "", "", "",
+   "", "", "9"],
+
+];

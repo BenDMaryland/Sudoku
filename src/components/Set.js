@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Cell from "./Cell";
 
 
-function Set({ i }) {
-const [data, setData] = useState([])
+function Set({ i,data }) {
+const [uniqKey, setuniqKey] = useState(0);
 
 
 
@@ -13,9 +13,9 @@ const [data, setData] = useState([])
   useEffect(() => {
     setcells((cells) => (cells = []));
 
-    for (let e = 1; e < 10; e++) {
-        
-      setcells((cells) => (cells = [...cells, <Cell key={e} number={i*9+e} />]));
+    for (let e = 0; e < 9; e++) {
+        setcells((cells) => (cells = [...cells, <Cell key={e} number={data[e]} />]))
+
     }
   }, []);
 
