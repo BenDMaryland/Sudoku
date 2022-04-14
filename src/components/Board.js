@@ -113,18 +113,23 @@ function Board() {
             array = array.filter(string => string != "")
             return new Set(array).size !== array.length;
         }
-        console.log(result)
+        console.log(result, array)
         return result
     }
 
     function getRandomInt() {
-        return Math.floor(Math.random() * (10 - 1) + 1)
+        return Math.floor(Math.random() * (9))
+    }
+
+
+    function getRandomInt2() {
+        return Math.floor(Math.random() * (9) + 1)
     }
 
     function checkDone() {
-let result = true
+        let result = true
         for (let i = 0; i != 9; i++) {
-            boardNums[i].find(num=> num ==="") && (result = false)
+            boardNums[i].find(num => num === "") && (result = false)
 
         }
         return result
@@ -133,22 +138,41 @@ let result = true
 
     useEffect(() => {
 
-        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))
+        let z
+        //   setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt2()]))
+            setBoardNums( board => board = ([
+        ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+            ["", "", "", "", "", "", "", "", ""],
+    ]))
 
-        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()])) 
-        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))
+        // for (let i = 0; i != 9; i++) {
 
-        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))   
-           setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()]))
+        //     for (let e = 0; e != 9; e++) {
+          
 
-        setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt()])) 
+        //         setBoardNums(boardNums => [...boardNums, boardNums[i][e] = z ])
+        //         if (validHandler(boardNums)) {
+        //           console.log(i*9 +e,z)
 
-//         while (checkDone()) {
-//             x = getRandomInt()
-//             y = getRandomInt()
-//             z = getRandomInt()
+        //         }else {
+        //             console.log(i * 9 + e, z, "bad")
+        //             e= e-1
+        //         }
 
-// }
+
+        //     }
+        // }
+
+
+
+
 
     }, [])
 
