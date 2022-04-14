@@ -18,8 +18,8 @@ function Square({ i, boardNums }) {
 
 
 
-
-
+console.log("Squ1wre ",boardNums)
+  if (boardNums.filter(num=> num ==="").length ===9) return <p>Not working</p>
   return( 
   <SetStyle>{cells.map((cell) => cell)}</SetStyle>
   )

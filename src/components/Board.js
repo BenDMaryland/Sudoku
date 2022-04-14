@@ -113,7 +113,7 @@ function Board() {
             array = array.filter(string => string != "")
             return new Set(array).size !== array.length;
         }
-        console.log(result, array)
+        //   console.log(result, array)
         return result
     }
 
@@ -137,11 +137,8 @@ function Board() {
 
 
     useEffect(() => {
-
-        let z
-        //   setBoardNums(board => ([...boardNums, board[getRandomInt()][getRandomInt()] = getRandomInt2()]))
-            setBoardNums( board => board = ([
-        ["", "", "", "", "", "", "", "", ""],
+        let numArray = [82,344]
+        let bDog = [
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
@@ -150,29 +147,40 @@ function Board() {
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
-    ]))
+            ["", "", "", "", "", "", "", "", ""],
+        ]
 
-        // for (let i = 0; i != 9; i++) {
+        for (let i = 0; i != 80; i++) {
+            let y = getRandomInt()
+            let x = getRandomInt()
+            let z = getRandomInt2()
 
-        //     for (let e = 0; e != 9; e++) {
-          
+            console.log(numArray,x,y)
+            if (numArray.find(num => (num === y * 9 + x))===undefined ) {
+                bDog[y][x] = z
+                if (validHandler(bDog)) {
+                     console.log(y ,x, z, "good",bDog[y][x] )
+                    numArray.push(y * 9 + x)
+                } else {
+                    console.log(y * 9 + x, z, "bad")
+                    bDog[y][x] = ""
+                    
+                }
+           
+            }
+            else {
+                i--
+            }
 
-        //         setBoardNums(boardNums => [...boardNums, boardNums[i][e] = z ])
-        //         if (validHandler(boardNums)) {
-        //           console.log(i*9 +e,z)
+         
 
-        //         }else {
-        //             console.log(i * 9 + e, z, "bad")
-        //             e= e-1
-        //         }
+        }
 
 
-        //     }
-        // }
+        setBoardNums(bDog)
 
-
-
-
+        console.log(boardNums, "and Bdog is ", bDog, numArray)
+        //console.log(boardNums)
 
     }, [])
 
@@ -181,16 +189,23 @@ function Board() {
     useEffect(() => {
         setSquares((squares) => (squares = []));
 
+
+
         for (let i = 0; i < 9; i++) {
             setSquares(
                 (squares) => (squares = [...squares, <Square boardNums={boardNums[i]} key={i} i={i} />])
             );
         }
-    }, []);
+        //    console.log("Runnin here ",boardNums)
+    }, [boardNums]);
 
-    if (squares === []) return null
+    // if (boardNums[0][0] === "") return <p>dddddddddddddddddd</p>
     console.log("i")
+
+    if (boardNums.filter(num => num === "").length === 9) return <p>Not working</p>
     return <BoardStyle>{squares.map((square) => square)}</BoardStyle>;
+
+
 }
 
 export default Board;

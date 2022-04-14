@@ -12,11 +12,11 @@ function Cell({ number, boardNums }) {
   }, []);
 
   function numHanlder(e) {
-    console.log(e.target.style.color);
+   // console.log(e.target.style.color);
     setnum((num) => (num = e.target.value));
     e.target.style.color = "blue";
   }
-
+//  console.log(boardNums, num)
   return (
     <CellStyle onClick={() => console.log("ddddd", number)}>
       <input
