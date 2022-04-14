@@ -17,6 +17,7 @@ function Cell({ number, boardNums }) {
     e.target.style.color = "blue";
   }
 //  console.log(boardNums, num)
+
   return (
     <CellStyle onClick={() => console.log("ddddd", number)}>
       <input

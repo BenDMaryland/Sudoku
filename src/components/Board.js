@@ -136,8 +136,70 @@ function Board() {
     }
 
 
+    function shuffler(array) {
+        let shuffled = array
+            .map(value => ({ value, sort: Math.random() }))
+            .sort((a, b) => a.sort - b.sort)
+            .map(({ value }) => value)
+
+        return shuffled
+    }
+
+
+    // useEffect(() => {
+    //     let numArray = [82,344]
+    //     let bDog = [
+    //         ["", "", "", "", "", "", "", "", ""],
+    //         ["", "", "", "", "", "", "", "", ""],
+    //         ["", "", "", "", "", "", "", "", ""],
+    //         ["", "", "", "", "", "", "", "", ""],
+    //         ["", "", "", "", "", "", "", "", ""],
+    //         ["", "", "", "", "", "", "", "", ""],
+    //         ["", "", "", "", "", "", "", "", ""],
+    //         ["", "", "", "", "", "", "", "", ""],
+    //         ["", "", "", "", "", "", "", "", ""],
+    //     ]
+
+    //     for (let i = 0; i != 80; i++) {
+    //         let y = getRandomInt()
+    //         let x = getRandomInt()
+    //         let z = getRandomInt2()
+
+    //         console.log(numArray,x,y)
+    //         if (numArray.find(num => (num === y * 9 + x))===undefined ) {
+    //             bDog[y][x] = z
+    //             if (validHandler(bDog)) {
+    //                  console.log(y ,x, z, "good",bDog[y][x] )
+    //                 numArray.push(y * 9 + x)
+    //             } else {
+    //                 console.log(y * 9 + x, z, "bad")
+    //                 bDog[y][x] = ""
+    //                 i--
+    //             }
+
+    //         }
+    //         else {
+    //             i--
+    //         }
+
+
+
+    //     }
+
+
+    //     setBoardNums(bDog)
+
+    //     console.log(boardNums, "and Bdog is ", bDog, numArray)
+    //     //console.log(boardNums)
+
+    // }, [])
+
+
+
+
+
+
     useEffect(() => {
-        let numArray = [82,344]
         let bDog = [
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
@@ -149,42 +211,36 @@ function Board() {
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
         ]
+        let array = [...Array(80).keys()]
+        let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let shuffledArray = shuffler(array)
+        let shuffledNums = shuffler(nums)
+        let num
+        let x
+        let y
+        let valid = false
+        let e =0 
 
         for (let i = 0; i != 80; i++) {
-            let y = getRandomInt()
-            let x = getRandomInt()
-            let z = getRandomInt2()
+            num = array[i]
+            y = Math.floor(num / 9)
+            x = num - (y * 9)
+            console.log("here we go ", num, x, y, y * 9 + x)
 
-            console.log(numArray,x,y)
-            if (numArray.find(num => (num === y * 9 + x))===undefined ) {
-                bDog[y][x] = z
-                if (validHandler(bDog)) {
-                     console.log(y ,x, z, "good",bDog[y][x] )
-                    numArray.push(y * 9 + x)
-                } else {
-                    console.log(y * 9 + x, z, "bad")
-                    bDog[y][x] = ""
-                    
-                }
-           
-            }
-            else {
-                i--
-            }
-
-         
-
+            bDog[y][x] = shuffledNums[0]
+        
+            do {
+                bDog[y][x] = shuffledNums[e]
+                if(bDog){valid = true}
+                e++
+            } while (valid);
+valid = false
+            shuffledNums = shuffler(nums)
         }
-
-
         setBoardNums(bDog)
-
-        console.log(boardNums, "and Bdog is ", bDog, numArray)
-        //console.log(boardNums)
+        console.log(boardNums, "and Bdog is ", bDog)
 
     }, [])
-
-
 
     useEffect(() => {
         setSquares((squares) => (squares = []));
