@@ -22,7 +22,7 @@ function Square({ i, boardNums }) {
 
 
 
-console.log("Sque22qqwssww2;;;ewe ",boardNums)
+//console.log("Sque22qqwssww2;;;ewe ",boardNums)
  if (boardNums.filter(num=> num ==="").length ===9) return <p>Not working</p>
   return( 
   <SetStyle>{cells.map((cell) => cell)}</SetStyle>

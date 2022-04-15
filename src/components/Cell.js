@@ -7,16 +7,15 @@ function Cell({ number, boardNums }) {
   const [neg, setneg] = useState("");
 
   useEffect(() => {
-    setnum((num) => (num = number));
-
+    setnum((num) => (num = boardNums));
   }, []);
 
   function numHanlder(e) {
-   // console.log(e.target.style.color);
+    console.log(e.target.style.color);
+
     setnum((num) => (num = e.target.value));
     e.target.style.color = "blue";
   }
-//  console.log(boardNums, num)
 
   return (
     <CellStyle onClick={() => console.log("ddddd", number)}>
@@ -25,14 +24,14 @@ function Cell({ number, boardNums }) {
         style={{ color: "black" }}
         type={number}
         maxLength={1}
-              value={boardNums}
+        value={num}
         onChange={(e) => numHanlder(e)}
       ></input>
       <div className="notes">
         <input
           className="note"
           style={{ color: "green" }}
-          value={num}
+          value={number}
           onChange={(e) => setnote(e.target.value)}
         ></input>
 
