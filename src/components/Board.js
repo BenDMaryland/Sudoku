@@ -130,45 +130,59 @@ function Board() {
 
 
     function solver(array) {
-
-        let test = array
+//debugger
+        let tester = structuredClone(array)
         let arr = [...Array(81).keys()]
         let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         let shuffledNums = shuffler(nums)
-
-        while (!isComplete(test)) {
-
-          
-            for (let i = 0; i != 9; i++) {
-                for (let e = 0; e != 9; e++) {
-                    if (test[i][e] === "") {
-                        for (let f = 0; f != 9; f++) {
-                            test[i][e] = shuffledNums[f]
-                            if (validHandler(test)) { break }
-                        }
-
+        let num
+        let x
+        let y
+        while (!isComplete(tester)) {
+            console.log("first ", tester,array)
+            for (let i = 0; i != 81; i++) {
+                shuffledNums = shuffler(nums)
+                num = arr[i]
+                y = Math.floor(num / 9)
+                x = num - (y * 9)
+                if (tester[y][x] === "") {
+                    for (let e = 0; e != 9; e++) {
+                        tester[y][x] = shuffledNums[e]
+                        console.log(num, shuffledNums[e], validHandler(tester), tester)
+                        if (validHandler(tester)) { break }
                     }
+
+                    if (!validHandler(tester)) {  tester = structuredClone(array)   }
                 }
 
-
-                console.log("in  loop:", test)
+                //       console.log("in  loop:", test)
             }
+
+            if (!validHandler(tester)) {
+                console.log("array is ", array, tester)
+                //  test = structuredClone(array)
+                shuffledNums = shuffler(nums)
+
+            }
+
         }
-        console.log("out  loop:", test)
+        if (validHandler(tester)) { console.log("Val;iddd") }
+        else { console.log("invalid") }
+        console.log("out  loop:", tester, array)
     }
 
 
 
 
 
-   console.log(solver(finerBoy))
-    
+    console.log(solver(testerBoy))
+
     function isComplete(array) {
         let result = true
 
         for (let i = 0; i != 9; i++) {
             array[i].filter(num => num === "").length != 0 && (result = false)
-        //    console.log(array[i].filter(num => num === "").length, array[i])
+            //    console.log(array[i].filter(num => num === "").length, array[i])
 
         }
 
@@ -244,7 +258,7 @@ function Board() {
 
         for (let i = 0; i < 9; i++) {
             setSquares(
-                (squares) => (squares = [...squares, <Square boardNums={bDog[i]} key={i} i={i} />])
+                (squares) => (squares = [...squares, <Square boardNums={testerBoy[i]} key={i} i={i} />])
             );
         }
 
@@ -288,8 +302,19 @@ let finerBoy = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
 [2, 9, 3, 1, 4, 6, 7, 8, 5],
 [4, 8, 5, 3, 2, 7, 9, 1, 6]]
 
-let testerBoy = [["", "", 4, 8, 1, 5, 3, 2, 7],
-[3, 7, 8, 6, 2, 4, 5, 1, 9],
+let testerBoy = [[6, "", '', "", "", "", "", 2, 7],
+[3, 7, 8, 6, 2, 4, "", 1, 9],
+[2, "", 1, '', 9, 3, '', 4, 8],
+[5, 8, 3, 7, '', 9, 2, 6, 1],
+[4, "", "", "", "", 1, 9, 5, 7],
+[1, 7, 9, 5, "", 2, 8, 3, 4],
+[1, "", '', '', '', 8, 4, 3, 2],
+[2, "", 3, 1, '', 6, "", 8, 5],
+[4, 8, "", "", 2, 7, "", 1, 6]]
+
+
+let testerBoy1 = [[6, '', '', '', '', '', '', '', ''],
+['', '', 8, 6, 2, 4, 5, 1, 9],
 [2, 5, 1, 7, 9, 3, 6, 4, 8],
 [5, 8, 3, 7, 4, 9, 2, 6, 1],
 [4, 6, 2, 8, 3, 1, 9, 5, 7],
