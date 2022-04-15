@@ -211,52 +211,88 @@ function Board() {
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
         ]
-        let array = [...Array(80).keys()]
+        let array = [...Array(81).keys()]
         let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         let shuffledArray = shuffler(array)
         let shuffledNums = shuffler(nums)
         let num
         let x
         let y
-        let valid = false
-        let e =0 
+        let s = 0
+        let f = 0
+        console.log(array)
 
-        for (let i = 0; i != 80; i++) {
+        for (let i = 0; i != 81; i++) {
             num = array[i]
+            f=f+1
             y = Math.floor(num / 9)
             x = num - (y * 9)
-            console.log("here we go ", num, x, y, y * 9 + x)
+            //    console.log("here we go ", num, x, y, y * 9 + x)
 
-            bDog[y][x] = shuffledNums[0]
-        
-            do {
+            //   bDog[y][x] = shuffledNums[0]
+            for (let e = 0; e != 9; e++) {
                 bDog[y][x] = shuffledNums[e]
-                if(bDog){valid = true}
-                e++
-            } while (valid);
-valid = false
+
+                if (validHandler(bDog)) {
+                
+                    break
+                }
+                //       console.log(i, e)
+            }
+
+            if (!validHandler(bDog)) {
+                console.log(f,"ya boy ran ")
+                i = 0
+             
+                s=s+1
+                bDog = [
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                ]
+            }
             shuffledNums = shuffler(nums)
+
         }
         setBoardNums(bDog)
-        console.log(boardNums, "and Bdog is ", bDog)
 
-    }, [])
+        console.log(boardNums, "and Bdog is ", bDog, x,y)
 
-    useEffect(() => {
+
+
         setSquares((squares) => (squares = []));
 
 
 
         for (let i = 0; i < 9; i++) {
             setSquares(
-                (squares) => (squares = [...squares, <Square boardNums={boardNums[i]} key={i} i={i} />])
+                (squares) => (squares = [...squares, <Square boardNums={bDog[i]} key={i} i={i} />])
             );
         }
-        //    console.log("Runnin here ",boardNums)
-    }, [boardNums]);
+
+    }, [])
+
+    // useEffect(() => {
+    //     setSquares((squares) => (squares = []));
+
+
+
+    //     for (let i = 0; i < 9; i++) {
+    //         setSquares(
+    //             (squares) => (squares = [...squares, <Square boardNums={boardNums[i]} key={i} i={i} />])
+    //         );
+    //     }
+    //     //    console.log("Runnin here ",boardNums)
+    // }, [boardNums]);
 
     // if (boardNums[0][0] === "") return <p>dddddddddddddddddd</p>
-    console.log("i")
+    console.log("iddssdsdsdsdsd")
 
     if (boardNums.filter(num => num === "").length === 9) return <p>Not working</p>
     return <BoardStyle>{squares.map((square) => square)}</BoardStyle>;

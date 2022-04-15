@@ -7,6 +7,7 @@ function Square({ i, boardNums }) {
 
   const [cells, setcells] = useState([]);
 
+
   useEffect(() => {
     setcells((cells) => (cells = []));
 
@@ -14,12 +15,15 @@ function Square({ i, boardNums }) {
       setcells((cells) => (cells = [...cells, <Cell key={e} boardNums={boardNums[e]}number={i *9 +e} />]))
 
     }
+
+  
   }, []);
 
 
 
-console.log("Squ11111asasasasas1w1r11e ",boardNums)
-//  if (boardNums.filter(num=> num ==="").length ===9) return <p>Not working</p>
+
+console.log("Sque22qqwssww2;;;ewe ",boardNums)
+ if (boardNums.filter(num=> num ==="").length ===9) return <p>Not working</p>
   return( 
   <SetStyle>{cells.map((cell) => cell)}</SetStyle>
   )
