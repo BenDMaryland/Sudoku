@@ -129,6 +129,55 @@ function Board() {
 
 
 
+    function solver(array) {
+
+        let test = array
+        let arr = [...Array(81).keys()]
+        let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        let shuffledNums = shuffler(nums)
+
+        while (!isComplete(test)) {
+
+          
+            for (let i = 0; i != 9; i++) {
+                for (let e = 0; e != 9; e++) {
+                    if (test[i][e] === "") {
+                        for (let f = 0; f != 9; f++) {
+                            test[i][e] = shuffledNums[f]
+                            if (validHandler(test)) { break }
+                        }
+
+                    }
+                }
+
+
+                console.log("in  loop:", test)
+            }
+        }
+        console.log("out  loop:", test)
+    }
+
+
+
+
+
+   console.log(solver(finerBoy))
+    
+    function isComplete(array) {
+        let result = true
+
+        for (let i = 0; i != 9; i++) {
+            array[i].filter(num => num === "").length != 0 && (result = false)
+        //    console.log(array[i].filter(num => num === "").length, array[i])
+
+        }
+
+        return result
+    }
+
+
+
+
     useEffect(() => {
         let bDog = [
             ["", "", "", "", "", "", "", "", ""],
@@ -152,40 +201,40 @@ function Board() {
         let s = 0
 
 
-        for (let i = 0; i != 81; i++) {
-            num = array[i]
-            f = f + 1
-            y = Math.floor(num / 9)
-            x = num - (y * 9)
+        // for (let i = 0; i != 81; i++) {
+        //     num = array[i]
+        //     f = f + 1
+        //     y = Math.floor(num / 9)
+        //     x = num - (y * 9)
 
-            for (let e = 0; e != 9; e++) {
-                bDog[y][x] = shuffledNums[e]
-      
-                if (validHandler(bDog)) { break }
-            }
+        //     for (let e = 0; e != 9; e++) {
+        //         bDog[y][x] = shuffledNums[e]
 
-            if (!validHandler(bDog)) {
-                s = s + 1
-                       console.log("Total I 's:" ,f, "ya boy failed:  ",s)
-                i = 0
-                bDog = [
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                    ["", "", "", "", "", "", "", "", ""],
-                ]
-            }
-            shuffledNums = shuffler(nums)
+        //         if (validHandler(bDog)) { break }
+        //     }
 
-        }
-        setBoardNums(bDog)
+        //     if (!validHandler(bDog)) {
+        //         s = s + 1
+        //         //    console.log("Total I 's:", f, "ya boy failed:  ", s)
+        //         i = 0
+        //         bDog = [
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //         ]
+        //     }
+        //     shuffledNums = shuffler(nums)
 
-        console.log(boardNums, "and Bdog is ", bDog)
+        // }
+        // setBoardNums(bDog)
+
+        // console.log(boardNums, "and Bdog is ", bDog)
 
 
 
@@ -230,6 +279,16 @@ let fineBoy = [[7, 6, 9, 5, 1, 4, 3, 2, 8],
 [6, 9, 5, 2, 3, 7, 8, 4, 1]]
 
 let finerBoy = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
+[3, 7, 8, 6, 2, 4, 5, 1, 9],
+[2, 5, 1, 7, 9, 3, 6, 4, 8],
+[5, 8, 3, 7, 4, 9, 2, 6, 1],
+[4, 6, 2, 8, 3, 1, 9, 5, 7],
+[1, 7, 9, 5, 6, 2, 8, 3, 4],
+[1, 7, 6, 9, 5, 8, 4, 3, 2],
+[2, 9, 3, 1, 4, 6, 7, 8, 5],
+[4, 8, 5, 3, 2, 7, 9, 1, 6]]
+
+let testerBoy = [["", "", 4, 8, 1, 5, 3, 2, 7],
 [3, 7, 8, 6, 2, 4, 5, 1, 9],
 [2, 5, 1, 7, 9, 3, 6, 4, 8],
 [5, 8, 3, 7, 4, 9, 2, 6, 1],
