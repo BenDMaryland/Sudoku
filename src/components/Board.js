@@ -172,10 +172,87 @@ function Board() {
     }
 
 
+function solvable(arrays){
+
+    let row1 = [];
+    let row2 = [];
+    let row3 = [];
+    let row4 = [];
+    let row5 = [];
+    let row6 = [];
+    let row7 = [];
+    let row8 = [];
+    let row9 = [];
+
+    let col1 = [];
+    let col2 = [];
+    let col3 = [];
+    let col4 = [];
+    let col5 = [];
+    let col6 = [];
+    let col7 = [];
+    let col8 = [];
+    let col9 = [];
 
 
 
-    console.log(solver(testerBoy))
+
+
+
+    let result = true
+
+
+    for (let i = 0; i != 9; i++) {
+
+        // ///checking squares
+        // // console.log(array[0], i)
+        // hasDuplicates(arrays[i]) && (result = false)
+
+        for (let e = 0; e != 9; e++) {
+
+            /// to check Rows we want to check every row3
+            i < 3 ?
+                e < 3 ? (row1 = [...row1, arrays[i][e]])
+                    : e < 6 ? (row2 = [...row2, arrays[i][e]])
+                        : (row3 = [...row3, arrays[i][e]])
+                : i < 6 ?
+                    e < 3 ? (row4 = [...row4, arrays[i][e]])
+                        : e < 6 ? (row5 = [...row5, arrays[i][e]])
+                            : (row6 = [...row6, arrays[i][e]])
+                    :
+                    e < 3 ? (row7 = [...row7, arrays[i][e]])
+                        : e < 6 ? (row8 = [...row8, arrays[i][e]])
+                            : (row9 = [...row9, arrays[i][e]]);
+
+            ///to check columns it's every thrird
+            i % 3 === 0 ?
+                e % 3 === 0 ? (col1 = [...col1, arrays[i][e]])
+                    : e % 3 === 1 ? (col2 = [...col2, arrays[i][e]])
+                        : (col3 = [...col3, arrays[i][e]])
+                : i % 3 === 1 ?
+                    e % 3 === 0 ? (col4 = [...col4, arrays[i][e]])
+                        : e % 3 === 1 ? (col5 = [...col5, arrays[i][e]])
+                            : (col6 = [...col6, arrays[i][e]])
+                    :
+                    e % 3 === 0 ? (col7 = [...col7, arrays[i][e]])
+                        : e % 3 === 1 ? (col8 = [...col8, arrays[i][e]])
+                            : (col9 = [...col9, arrays[i][e]]);
+
+        }
+
+    }
+
+
+
+    
+}
+
+
+
+
+
+
+   console.log(solver(testerBoy))
 
     function isComplete(array) {
         let result = true
@@ -215,40 +292,40 @@ function Board() {
         let s = 0
 
 
-        // for (let i = 0; i != 81; i++) {
-        //     num = array[i]
-        //     f = f + 1
-        //     y = Math.floor(num / 9)
-        //     x = num - (y * 9)
+        for (let i = 0; i != 81; i++) {
+            num = array[i]
+            f = f + 1
+            y = Math.floor(num / 9)
+            x = num - (y * 9)
 
-        //     for (let e = 0; e != 9; e++) {
-        //         bDog[y][x] = shuffledNums[e]
+            for (let e = 0; e != 9; e++) {
+                bDog[y][x] = shuffledNums[e]
 
-        //         if (validHandler(bDog)) { break }
-        //     }
+                if (validHandler(bDog)) { break }
+            }
 
-        //     if (!validHandler(bDog)) {
-        //         s = s + 1
-        //         //    console.log("Total I 's:", f, "ya boy failed:  ", s)
-        //         i = 0
-        //         bDog = [
-        //             ["", "", "", "", "", "", "", "", ""],
-        //             ["", "", "", "", "", "", "", "", ""],
-        //             ["", "", "", "", "", "", "", "", ""],
-        //             ["", "", "", "", "", "", "", "", ""],
-        //             ["", "", "", "", "", "", "", "", ""],
-        //             ["", "", "", "", "", "", "", "", ""],
-        //             ["", "", "", "", "", "", "", "", ""],
-        //             ["", "", "", "", "", "", "", "", ""],
-        //             ["", "", "", "", "", "", "", "", ""],
-        //         ]
-        //     }
-        //     shuffledNums = shuffler(nums)
+            if (!validHandler(bDog)) {
+                s = s + 1
+                //    console.log("Total I 's:", f, "ya boy failed:  ", s)
+                i = 0
+                bDog = [
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                    ["", "", "", "", "", "", "", "", ""],
+                ]
+            }
+            shuffledNums = shuffler(nums)
 
-        // }
-        // setBoardNums(bDog)
+        }
+        setBoardNums(bDog)
 
-        // console.log(boardNums, "and Bdog is ", bDog)
+        console.log(boardNums, "and Bdog is ", bDog)
 
 
 
@@ -258,7 +335,7 @@ function Board() {
 
         for (let i = 0; i < 9; i++) {
             setSquares(
-                (squares) => (squares = [...squares, <Square boardNums={testerBoy[i]} key={i} i={i} />])
+                (squares) => (squares = [...squares, <Square boardNums={bDog[i]} key={i} i={i} />])
             );
         }
 
