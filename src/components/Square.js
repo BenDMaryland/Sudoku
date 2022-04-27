@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cell from "./Cell";
 
 
-function Square({ i, boardNums }) {
+function Square({ i, boardNums,solution }) {
 
   const [cells, setcells] = useState([]);
 
@@ -12,7 +12,7 @@ function Square({ i, boardNums }) {
     setcells((cells) => (cells = []));
 
     for (let e = 0; e < 9; e++) {
-      setcells((cells) => (cells = [...cells, <Cell key={e} boardNums={boardNums[e]}number={i *9 +e} />]))
+      setcells((cells) => (cells = [...cells, <Cell key={e}  solution={solution[e]} boardNums={boardNums[e]}number={i *9 +e} />]))
 
     }
 

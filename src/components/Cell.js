@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function Cell({ number, boardNums }) {
+function Cell({ solution,number, boardNums }) {
   const [num, setnum] = useState("");
   const [note, setnote] = useState("");
   const [neg, setneg] = useState("");
 
   useEffect(() => {
     setnum((num) => (num = boardNums));
+    setneg(neg => (neg = solution) )
   }, []);
 
   function numHanlder(e) {
@@ -38,6 +39,7 @@ function Cell({ number, boardNums }) {
         <input
           className="neg"
           style={{ color: "red" }}
+          value={neg}
           onChange={(e) => setneg(e.target.value)}
         ></input>
       </div>
