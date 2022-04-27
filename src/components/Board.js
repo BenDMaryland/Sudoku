@@ -334,82 +334,146 @@ function Board() {
 
         let rows = [row1, row2, row3, row4, row5, row6, row7, row8, row9]
         let columns = [col1, col2, col3, col4, col5, col6, col7, col8, col9]
-return [arrays,rows,columns]
+        return [arrays, rows, columns]
     }
 
 
 
-function humanSolvable(){
+    function humanSolvable(position) {
+        let isSolvable 
+        const key = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        position = 33
+        let squares = arrayMaker(finerBoy)[0]
+        let rows = arrayMaker(finerBoy)[1]
+        let columns = arrayMaker(finerBoy)[2]
 
-    let squares = arrayMaker(finerBoy)[0]
-    let rows = arrayMaker(finerBoy)[1]
-    let columns = arrayMaker(finerBoy)[2]
-    console.log("squares",squares)
-    console.log("rows", rows)
-    console.log("columns", columns)
+        let squareY = Math.floor(position / 9)
+        let squareX = position - (squareY * 9)
+        let row
+        let column
+        let rowGroup
+        let possibleNumbers = key
+
+        squareY < 3 ?
+            squareX < 3 ? row = 0
+                : squareX < 6 ? row = 1
+                    : row = 2
+            : squareY < 6 ?
+                squareX < 3 ? row = 3
+                    : squareX < 6 ? row = 4
+                        : row = 5
+                :
+                squareX < 3 ? row = 6
+                    : squareX < 6 ? row = 7
+                        : row = 8
+
+        ///to check columns it's every thrird
+        squareY % 3 === 0 ?
+            squareX % 3 === 0 ? column = 0
+                : squareX % 3 === 1 ? column = 1
+                    : column = 2
+            : squareY % 3 === 1 ?
+                squareX % 3 === 0 ? column = 3
+                    : squareX % 3 === 1 ? column = 4
+                        : column = 5
+                :
+                squareX % 3 === 0 ? column = 6
+                    : squareX % 3 === 1 ? column = 7
+                        : column = 8
+
+        rowGroup = Math.floor(row / 3)
+
+
+
+        // squares[squareY].filter(num => num != "").length != 8 ? console.log("Square is false") : isSolvable = true
+        // columns[column].filter(num => num != "").length != 8 ? console.log("Column is false") : isSolvable = true
+        // rows[row].filter(num => num != "").length != 8 ? console.log("Row is false") : isSolvable = true
+
+        squares[squareY].filter(num => {
+            if (num === "") { return (possibleNumbers) }
+            possibleNumbers = possibleNumbers.filter(possibleNumber => possibleNumber != num)
+        })
+
+        rows[row].filter(num => {
+            if (num === "") { return (possibleNumbers) }
+            possibleNumbers = possibleNumbers.filter(possibleNumber => possibleNumber != num)
+        })
+
+
+        columns[column].filter(num => {
+            if (num === "") { return (possibleNumbers) }
+            possibleNumbers = possibleNumbers.filter(possibleNumber => possibleNumber != num)
+        })
+
+        console.log(possibleNumbers)
+        //      console.log(squareY, squareX)
+
+        possibleNumbers.length ===1 ? isSolvable = true : isSolvable =false
+
+return isSolvable
+    }
+
+
+
 
     
-
-}
-
-
     useEffect(() => {
-//         let bDog = [
-//             ["", "", "", "", "", "", "", "", ""],
-//             ["", "", "", "", "", "", "", "", ""],
-//             ["", "", "", "", "", "", "", "", ""],
-//             ["", "", "", "", "", "", "", "", ""],
-//             ["", "", "", "", "", "", "", "", ""],
-//             ["", "", "", "", "", "", "", "", ""],
-//             ["", "", "", "", "", "", "", "", ""],
-//             ["", "", "", "", "", "", "", "", ""],
-//             ["", "", "", "", "", "", "", "", ""],
-//  ]
-//         let array = [...Array(81).keys()]
-//         let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-//         let shuffledNums = shuffler(nums)
-//         let num
-//         let x
-//         let y
-//         let f = 0
-//         let s = 0
+        //         let bDog = [
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //             ["", "", "", "", "", "", "", "", ""],
+        //  ]
+        //         let array = [...Array(81).keys()]
+        //         let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        //         let shuffledNums = shuffler(nums)
+        //         let num
+        //         let x
+        //         let y
+        //         let f = 0
+        //         let s = 0
 
-//         for (let i = 0; i != 81; i++) {
-//             num = array[i]
-//             f = f + 1
-//             y = Math.floor(num / 9)
-//             x = num - (y * 9)
+        //         for (let i = 0; i != 81; i++) {
+        //             num = array[i]
+        //             f = f + 1
+        //             y = Math.floor(num / 9)
+        //             x = num - (y * 9)
 
-//             for (let e = 0; e != 9; e++) {
-//                 bDog[y][x] = shuffledNums[e]
+        //             for (let e = 0; e != 9; e++) {
+        //                 bDog[y][x] = shuffledNums[e]
 
-//                 if (validHandler(bDog)) { break }
-//             }
+        //                 if (validHandler(bDog)) { break }
+        //             }
 
-//             if (!validHandler(bDog)) {
-//                 s = s + 1
-//                 //    console.log("Total I 's:", f, "ya boy failed:  ", s)
-//                 i = 0
-//                 bDog = [
-//                     ["", "", "", "", "", "", "", "", ""],
-//                     ["", "", "", "", "", "", "", "", ""],
-//                     ["", "", "", "", "", "", "", "", ""],
-//                     ["", "", "", "", "", "", "", "", ""],
-//                     ["", "", "", "", "", "", "", "", ""],
-//                     ["", "", "", "", "", "", "", "", ""],
-//                     ["", "", "", "", "", "", "", "", ""],
-//                     ["", "", "", "", "", "", "", "", ""],
-//                     ["", "", "", "", "", "", "", "", ""],
-//                 ]
-//             }
-//             shuffledNums = shuffler(nums)
+        //             if (!validHandler(bDog)) {
+        //                 s = s + 1
+        //                 //    console.log("Total I 's:", f, "ya boy failed:  ", s)
+        //                 i = 0
+        //                 bDog = [
+        //                     ["", "", "", "", "", "", "", "", ""],
+        //                     ["", "", "", "", "", "", "", "", ""],
+        //                     ["", "", "", "", "", "", "", "", ""],
+        //                     ["", "", "", "", "", "", "", "", ""],
+        //                     ["", "", "", "", "", "", "", "", ""],
+        //                     ["", "", "", "", "", "", "", "", ""],
+        //                     ["", "", "", "", "", "", "", "", ""],
+        //                     ["", "", "", "", "", "", "", "", ""],
+        //                     ["", "", "", "", "", "", "", "", ""],
+        //                 ]
+        //             }
+        //             shuffledNums = shuffler(nums)
 
-//         }
-//         setBoardNums(bDog)
+        //         }
+        //         setBoardNums(bDog)
 
         // console.log(boardNums, "and Bdog is ", bDog)
         setSquares((squares) => (squares = []));
-        humanSolvable()
+        humanSolvable(33)
         for (let i = 0; i < 9; i++) {
             setSquares(
                 (squares) => (squares = [...squares, <Square boardNums={finerBoy[i]} key={i} i={i} />])
@@ -446,7 +510,7 @@ let fineBoy = [[7, 6, 9, 5, 1, 4, 3, 2, 8],
 [7, 4, 2, 1, 6, 8, 5, 3, 9],
 [6, 9, 5, 2, 3, 7, 8, 4, 1]]
 
-let finerBoy = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
+let finerBoyFull = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
 [3, 7, 8, 6, 2, 4, 5, 1, 9],
 [2, 5, 1, 7, 9, 3, 6, 4, 8],
 [5, 8, 3, 7, 4, 9, 2, 6, 1],
@@ -456,23 +520,34 @@ let finerBoy = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
 [2, 9, 3, 1, 4, 6, 7, 8, 5],
 [4, 8, 5, 3, 2, 7, 9, 1, 6]]
 
-let testerBoy = [[6, "", '', "", "", "", "", 2, 7],
-[3, 7, 8, 6, 2, 4, "", 1, 9],
-[2, "", 1, '', 9, 3, '', 4, 8],
-[5, 8, 3, 7, '', 9, 2, 6, 1],
-[4, "", "", "", "", 1, 9, 5, 7],
-[1, 7, 9, 5, "", 2, 8, 3, 4],
-[1, "", '', '', '', 8, 4, 3, 2],
-[2, "", 3, 1, '', 6, "", 8, 5],
-[4, 8, "", "", 2, 7, "", 1, 6]]
-
-
-let testerBoy1 = [[6, '', '', '', '', '', '', '', ''],
-['', '', 8, 6, 2, 4, 5, 1, 9],
+let finerBoy = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
+[3, 7, 8, 6, 2, 4, 5, 1, 9],
 [2, 5, 1, 7, 9, 3, 6, 4, 8],
-[5, 8, 3, 7, 4, 9, 2, 6, 1],
-[4, 6, 2, 8, 3, 1, 9, 5, 7],
+[5, 8, 3, 7, 4, 9, "", 6, 1],
+[4, 6, "", 8, 3, 1, 9, 5, 7],
 [1, 7, 9, 5, 6, 2, 8, 3, 4],
 [1, 7, 6, 9, 5, 8, 4, 3, 2],
 [2, 9, 3, 1, 4, 6, 7, 8, 5],
 [4, 8, 5, 3, 2, 7, 9, 1, 6]]
+
+
+// let testerBoy = [["", "", '', "", "", "", "", "", 7],
+// [3, 7, 8, 6, 2, 4, "", 1, 9],
+// [2, "", 1, '', 9, 3, '', 4, 8],
+// [5, 8, 3, 7, '', 9, 2, 6, 1],
+// [4, "", "", "", "", 1, 9, 5, 7],
+// [1, 7, 9, 5, "", 2, 8, 3, 4],
+// [1, "", '', '', '', 8, 4, 3, 2],
+// [2, "", 3, 1, '', 6, "", 8, 5],
+// [4, 8, "", "", 2, 7, "", 1, 6]]
+
+
+// let testerBoy1 = [[6, '', '', '', '', '', '', '', ''],
+// ['', '', 8, 6, 2, 4, 5, 1, 9],
+// [2, 5, 1, 7, 9, 3, 6, 4, 8],
+// [5, 8, 3, 7, 4, 9, 2, 6, 1],
+// [4, 6, 2, 8, 3, 1, 9, 5, 7],
+// [1, 7, 9, 5, 6, 2, 8, 3, 4],
+// [1, 7, 6, 9, 5, 8, 4, 3, 2],
+// [2, 9, 3, 1, 4, 6, 7, 8, 5],
+// [4, 8, 5, 3, 2, 7, 9, 1, 6]]
