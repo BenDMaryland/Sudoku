@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function Cell({ solution,number, boardNums }) {
+function Cell({ solution, number, boardNums }) {
   const [num, setnum] = useState("");
   const [note, setnote] = useState("");
   const [neg, setneg] = useState("");
 
   useEffect(() => {
     setnum((num) => (num = boardNums));
-    setneg(neg => (neg = solution) )
+    setneg(neg => (neg = solution))
   }, []);
 
   function numHanlder(e) {
@@ -20,6 +20,7 @@ function Cell({ solution,number, boardNums }) {
 
   return (
     <CellStyle onClick={() => console.log("ddddd", number)}>
+
       <input
         className="num"
         style={{ color: "black" }}
@@ -28,7 +29,9 @@ function Cell({ solution,number, boardNums }) {
         value={num}
         onChange={(e) => numHanlder(e)}
       ></input>
+
       <div className="notes">
+
         <input
           className="note"
           style={{ color: "green" }}

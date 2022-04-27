@@ -6,19 +6,6 @@ import styled from "styled-components";
 function Board() {
     const [squares, setSquares] = useState([]);
 
-
-    const [boardNums, setBoardNums] = useState([
-        ["0", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", ""],
-        ["", "", "", "", "", "", "", "", "80"],
-    ]);
-
     function validHandler(array) {
 
         let row1 = [];
@@ -192,19 +179,24 @@ function Board() {
         return [arrays, rows, columns]
     }
 
-    function humanSolvable(finerBoy, position) {
+    function humanSolvable(board, position) {
         let isSolvable
+   
         const key = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-        let squares = arrayMaker(finerBoy)[0]
-        let rows = arrayMaker(finerBoy)[1]
-        let columns = arrayMaker(finerBoy)[2]
-
+        let testBoard = structuredClone(board)
         let squareY = Math.floor(position / 9)
         let squareX = position - (squareY * 9)
+        testBoard[squareY][squareX] = ""
+
+
+        let squares = arrayMaker(testBoard)[0]
+        let rows = arrayMaker(testBoard)[1]
+        let columns = arrayMaker(testBoard)[2]
+
+
+
         let row
         let column
-        let rowGroup
         let possibleNumbers = key
 
         squareY < 3 ?
@@ -234,7 +226,6 @@ function Board() {
                     : squareX % 3 === 1 ? column = 7
                         : column = 8
 
-        rowGroup = Math.floor(row / 3)
 
         squares[squareY].filter(num => {
             if (num === "") { return (possibleNumbers) }
@@ -251,19 +242,20 @@ function Board() {
             if (num === "") { return (possibleNumbers) }
             possibleNumbers = possibleNumbers.filter(possibleNumber => possibleNumber != num)
         })
+        possibleNumbers.length === 1 ? isSolvable = true : isSolvable = false
 
+        if (possibleNumbers.length === 1) {
+            console.log(possibleNumbers, position)
+        
 
-        possibleNumbers.length <= 1 ? isSolvable = true : isSolvable = false
-
+        }
+       
         return isSolvable
     }
 
     function boardSubtractor(board) {
         console.log("I started running now")
-        let i = 0
-        let e = 0
         let array = [...Array(81).keys()]
-        let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         let shuffledArray = shuffler(array)
         shuffledArray.forEach(element => {
 
@@ -276,7 +268,9 @@ function Board() {
 
         return board
     }
+    
     useEffect(() => {
+
         let bDog = [
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
@@ -299,7 +293,7 @@ function Board() {
 
         for (let i = 0; i != 81; i++) {
             num = array[i]
-            f = f + 1
+             f ++
             y = Math.floor(num / 9)
             x = num - (y * 9)
 
@@ -308,9 +302,8 @@ function Board() {
 
                 if (validHandler(bDog)) { break }
             }
-
             if (!validHandler(bDog)) {
-                s = s + 1
+             s++
                   console.log("Total I 's:", f, "ya boy failed:  ", s)
                 i = 0
                 bDog = [
@@ -326,23 +319,20 @@ function Board() {
                 ]
             }
             shuffledNums = shuffler(nums)
-
         }
-        setBoardNums(bDog)
-
+      //  let bDog = finerBoyFull
 
         setSquares((squares) => (squares = []));
-        let finalBoard = structuredClone( bDog)
+        let finalBoard = structuredClone(bDog)
         boardSubtractor(finalBoard)
 
         console.log(bDog, finalBoard)
 
         for (let i = 0; i < 9; i++) {
             setSquares(
-                (squares) => (squares = [...squares, <Square solution={bDog[i]}  boardNums={finalBoard[i]} key={i} i={i} />])
+                (squares) => (squares = [...squares, <Square solution={bDog[i]} boardNums={finalBoard[i]} key={i} i={i} />])
             );
         }
-
     }, [])
     return <BoardStyle>{squares.map((square) => square)}</BoardStyle>;
 }
@@ -356,6 +346,16 @@ const BoardStyle = styled.div`
   height: fit-content;
   width: fit-content;
 `;
+
+let finerBoyFull = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
+[3, 7, 8, 6, 2, 4, 5, 1, 9],
+[2, 5, 1, 7, 9, 3, 6, 4, 8],
+[5, 8, 3, 7, 4, 9, 2, 6, 1],
+[4, 6, 2, 8, 3, 1, 9, 5, 7],
+[1, 7, 9, 5, 6, 2, 8, 3, 4],
+[1, 7, 6, 9, 5, 8, 4, 3, 2],
+[2, 9, 3, 1, 4, 6, 7, 8, 5],
+[4, 8, 5, 3, 2, 7, 9, 1, 6]]
 
 
     // // function solver(array) {
@@ -523,17 +523,9 @@ const BoardStyle = styled.div`
 // ]
 
 
-// let finerBoyFull = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
-// [3, 7, 8, 6, 2, 4, 5, 1, 9],
-// [2, 5, 1, 7, 9, 3, 6, 4, 8],
-// [5, 8, 3, 7, 4, 9, 2, 6, 1],
-// [4, 6, 2, 8, 3, 1, 9, 5, 7],
-// [1, 7, 9, 5, 6, 2, 8, 3, 4],
-// [1, 7, 6, 9, 5, 8, 4, 3, 2],
-// [2, 9, 3, 1, 4, 6, 7, 8, 5],
-// [4, 8, 5, 3, 2, 7, 9, 1, 6]]
 
-// let finerBoy = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
+
+// let board = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
 // [3, 7, 8, 6, 2, 4, 5, 1, 9],
 // [2, 5, 1, 7, 9, 3, 6, 4, 8],
 // [5, 8, 3, 7, 4, 9, "", 6, 1],
