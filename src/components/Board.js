@@ -311,7 +311,7 @@ function Board() {
 
             if (!validHandler(bDog)) {
                 s = s + 1
-                //    console.log("Total I 's:", f, "ya boy failed:  ", s)
+                  console.log("Total I 's:", f, "ya boy failed:  ", s)
                 i = 0
                 bDog = [
                     ["", "", "", "", "", "", "", "", ""],
