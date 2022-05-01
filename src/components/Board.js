@@ -30,6 +30,7 @@ function Board() {
 
         let result = true
 
+        
 
         for (let i = 0; i != 9; i++) {
 
@@ -138,7 +139,7 @@ function Board() {
 
             // ///checking squares
             // // console.log(array[0], i)
-            // hasDuplicates(arrays[i]) && (result = false)
+  
 
             for (let e = 0; e != 9; e++) {
 
@@ -181,7 +182,7 @@ function Board() {
 
     function humanSolvable(board, position) {
         let isSolvable
-   
+
         const key = [1, 2, 3, 4, 5, 6, 7, 8, 9]
         let testBoard = structuredClone(board)
         let squareY = Math.floor(position / 9)
@@ -246,10 +247,7 @@ function Board() {
 
         if (possibleNumbers.length === 1) {
             console.log(possibleNumbers, position)
-        
-
         }
-       
         return isSolvable
     }
 
@@ -268,10 +266,10 @@ function Board() {
 
         return board
     }
-    
-    useEffect(() => {
 
-        let bDog = [
+    function boardMaker() {
+
+        let boardSolution = [
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
             ["", "", "", "", "", "", "", "", ""],
@@ -293,20 +291,20 @@ function Board() {
 
         for (let i = 0; i != 81; i++) {
             num = array[i]
-             f ++
+            f++
             y = Math.floor(num / 9)
             x = num - (y * 9)
 
             for (let e = 0; e != 9; e++) {
-                bDog[y][x] = shuffledNums[e]
+                boardSolution[y][x] = shuffledNums[e]
 
-                if (validHandler(bDog)) { break }
+                if (validHandler(boardSolution)) { break }
             }
-            if (!validHandler(bDog)) {
-             s++
-                  console.log("Total I 's:", f, "ya boy failed:  ", s)
+            if (!validHandler(boardSolution)) {
+                s++
+                console.log("Total I 's:", f, "ya boy failed:  ", s)
                 i = 0
-                bDog = [
+                boardSolution = [
                     ["", "", "", "", "", "", "", "", ""],
                     ["", "", "", "", "", "", "", "", ""],
                     ["", "", "", "", "", "", "", "", ""],
@@ -320,20 +318,25 @@ function Board() {
             }
             shuffledNums = shuffler(nums)
         }
-      //  let bDog = finerBoyFull
+        return boardSolution
+    }
 
-        setSquares((squares) => (squares = []));
-        let finalBoard = structuredClone(bDog)
+    useEffect(() => {
+        let solutionBoard = boardMaker()
+        let finalBoard = structuredClone(solutionBoard)
+
+        // setSquares((squares) => (squares = []));
         boardSubtractor(finalBoard)
 
-        console.log(bDog, finalBoard)
+        console.log(solutionBoard, finalBoard)
 
         for (let i = 0; i < 9; i++) {
             setSquares(
-                (squares) => (squares = [...squares, <Square solution={bDog[i]} boardNums={finalBoard[i]} key={i} i={i} />])
+                (squares) => (squares = [...squares, <Square solution={solutionBoard[i]} boardNums={finalBoard[i]} key={i} i={i} />])
             );
         }
     }, [])
+
     return <BoardStyle>{squares.map((square) => square)}</BoardStyle>;
 }
 
@@ -347,15 +350,15 @@ const BoardStyle = styled.div`
   width: fit-content;
 `;
 
-let finerBoyFull = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
-[3, 7, 8, 6, 2, 4, 5, 1, 9],
-[2, 5, 1, 7, 9, 3, 6, 4, 8],
-[5, 8, 3, 7, 4, 9, 2, 6, 1],
-[4, 6, 2, 8, 3, 1, 9, 5, 7],
-[1, 7, 9, 5, 6, 2, 8, 3, 4],
-[1, 7, 6, 9, 5, 8, 4, 3, 2],
-[2, 9, 3, 1, 4, 6, 7, 8, 5],
-[4, 8, 5, 3, 2, 7, 9, 1, 6]]
+// let finerBoyFull = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
+// [3, 7, 8, 6, 2, 4, 5, 1, 9],
+// [2, 5, 1, 7, 9, 3, 6, 4, 8],
+// [5, 8, 3, 7, 4, 9, 2, 6, 1],
+// [4, 6, 2, 8, 3, 1, 9, 5, 7],
+// [1, 7, 9, 5, 6, 2, 8, 3, 4],
+// [1, 7, 6, 9, 5, 8, 4, 3, 2],
+// [2, 9, 3, 1, 4, 6, 7, 8, 5],
+// [4, 8, 5, 3, 2, 7, 9, 1, 6]]
 
 
     // // function solver(array) {
