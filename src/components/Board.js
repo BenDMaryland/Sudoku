@@ -245,9 +245,6 @@ function Board() {
         })
         possibleNumbers.length === 1 ? isSolvable = true : isSolvable = false
 
-        if (possibleNumbers.length === 1) {
-            console.log(possibleNumbers, position)
-        }
         return isSolvable
     }
 
@@ -322,13 +319,13 @@ function Board() {
     }
 
     useEffect(() => {
-        let solutionBoard = boardMaker()
+    //    let solutionBoard = boardMaker()
+        let solutionBoard = finerBoyFull
         let finalBoard = structuredClone(solutionBoard)
 
         // setSquares((squares) => (squares = []));
         boardSubtractor(finalBoard)
-
-        console.log(solutionBoard, finalBoard)
+       // console.log(solutionBoard, finalBoard)
 
         for (let i = 0; i < 9; i++) {
             setSquares(
@@ -350,15 +347,15 @@ const BoardStyle = styled.div`
   width: fit-content;
 `;
 
-// let finerBoyFull = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
-// [3, 7, 8, 6, 2, 4, 5, 1, 9],
-// [2, 5, 1, 7, 9, 3, 6, 4, 8],
-// [5, 8, 3, 7, 4, 9, 2, 6, 1],
-// [4, 6, 2, 8, 3, 1, 9, 5, 7],
-// [1, 7, 9, 5, 6, 2, 8, 3, 4],
-// [1, 7, 6, 9, 5, 8, 4, 3, 2],
-// [2, 9, 3, 1, 4, 6, 7, 8, 5],
-// [4, 8, 5, 3, 2, 7, 9, 1, 6]]
+let finerBoyFull = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
+[3, 7, 8, 6, 2, 4, 5, 1, 9],
+[2, 5, 1, 7, 9, 3, 6, 4, 8],
+[5, 8, 3, 7, 4, 9, 2, 6, 1],
+[4, 6, 2, 8, 3, 1, 9, 5, 7],
+[1, 7, 9, 5, 6, 2, 8, 3, 4],
+[1, 7, 6, 9, 5, 8, 4, 3, 2],
+[2, 9, 3, 1, 4, 6, 7, 8, 5],
+[4, 8, 5, 3, 2, 7, 9, 1, 6]]
 
 
     // // function solver(array) {
