@@ -295,12 +295,14 @@ function Board() {
             for (let e = 0; e != 9; e++) {
                 boardSolution[y][x] = shuffledNums[e]
 
-                if (validHandler(boardSolution)) { break }
+                if (validHandler(boardSolution)) {
+         
+                    break }
             }
             if (!validHandler(boardSolution)) {
                 s++
-                console.log("Total I 's:", f, "ya boy failed:  ", s)
-                i = 0
+            //    console.log("Total I 's:", f, "ya boy failed:  ", s, boardSolution)
+                i = -1
                 boardSolution = [
                     ["", "", "", "", "", "", "", "", ""],
                     ["", "", "", "", "", "", "", "", ""],
@@ -315,12 +317,13 @@ function Board() {
             }
             shuffledNums = shuffler(nums)
         }
+        console.log(boardSolution)
         return boardSolution
     }
 
     useEffect(() => {
-    //    let solutionBoard = boardMaker()
-        let solutionBoard = finerBoyFull
+  let solutionBoard = boardMaker()
+   //let solutionBoard = finerBoyFull
         let finalBoard = structuredClone(solutionBoard)
 
         // setSquares((squares) => (squares = []));
