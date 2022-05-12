@@ -317,7 +317,6 @@ function Board() {
             }
             shuffledNums = shuffler(nums)
         }
-        console.log(boardSolution)
         return boardSolution
     }
 

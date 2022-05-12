@@ -15,7 +15,7 @@ function Cell({ solution, number, boardNums }) {
 
     setnum((num) => (""));
     setnum((num) => (num = e.target.value));
-    console.log(e.target.value,solution)
+    console.log(e.target.value, solution)
     e.target.value == solution ? e.target.style.color = "blue" : e.target.style.color = "red"
   }
 
@@ -23,19 +23,19 @@ function Cell({ solution, number, boardNums }) {
     <CellStyle >
 
       <input
-      onClick={(e)=>    e.target.select() }
+        onClick={(e) => e.target.select()}
         className="num"
         style={{ color: "black" }}
         type={number}
         maxLength={1}
         value={num}
-    // onFocus={(()=> setnum(num=>num=""))}
+        // onFocus={(()=> setnum(num=>num=""))}
         onChange={(e) => numHanlder(e)}
       ></input>
 
       <div className="notes">
 
-        {/* <input
+        <input
           className="note"
           style={{ color: "green" }}
           value={number}
@@ -47,7 +47,7 @@ function Cell({ solution, number, boardNums }) {
           style={{ color: "red" }}
           value={neg}
           onChange={(e) => setneg(e.target.value)}
-        ></input> */}
+        ></input>
       </div>
     </CellStyle>
   );
@@ -65,8 +65,10 @@ const CellStyle = styled.div`
 
     border: none;
     font-size: xx-large;
-    height: 60px;
-    width: 60px;
+    height: 47px;
+    width: 58px;
+        /* height: 60px;
+    width: 60px; */
     text-align: center;
   }
   .notes {
