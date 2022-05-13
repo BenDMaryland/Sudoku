@@ -7,7 +7,7 @@ function SnakeCell({ cellNumber,player }) {
     const cellSize = "30px"   
     const [playerTile, setplayerTile] = useState("white")
     useEffect(() => {
-     player ===cellNumber && setplayerTile("red")
+      player === cellNumber ? setplayerTile("red") : setplayerTile("white")
     }, [player])
     
     
