@@ -2,47 +2,48 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import SnakeCell from "./SnakeCell"
 
+
+
 function Snake() {
   const gridSize = 225
   let columnSize = Math.sqrt(gridSize)
   
-const [player, setplayer] = useState("[Player]")
+const [player, setplayer] = useState(112)
   const [snakeGrid, setsnakeGrid] = useState([...Array(gridSize).keys()])
   
-
-  // useEffect(() => {
-  // setsnakeGrid(snake=>snake =Array(81).keys())
-  // }, [])
   
   const boardStyle = {
-  
+    'border': "solid",
+    'display': "grid",
+    'gridTemplateColumns': `repeat(${columnSize}, 1fr)`,
+    'width': "fit-content",
+    'height': "fit-content",
+  }
 
-    
+
+  function movePlayer(e) {
+  
+console.log("Keypress",e.target.value)
+
 }
 
 
-  console.log("the grid is ", snakeGrid)
 
   return (
     <>
       
-    <SnakeBoard>
+    <div onKeyDown={(e)=>movePlayer(e)} style={boardStyle}>
 
-{snakeGrid.map((grid,i )=>  (<SnakeCell cellNumber={i} />))}
+{snakeGrid.map((grid,i )=>  (<SnakeCell key={i} player={player} cellNumber={i} />))}
 
 
-    </SnakeBoard>
+    </div>
     
     </>
   )
+
+
+  
 }
 
 export default Snake
-
-const SnakeBoard =styled.div`
-border: solid;
-display: grid;
-grid-template-columns: repeat(15, 1fr);
-width: fit-content;
-height: fit-content;
-`

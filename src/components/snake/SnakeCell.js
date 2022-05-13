@@ -3,19 +3,26 @@ import React, { useEffect, useState } from "react"
 import { unstable_shouldYield } from "scheduler"
 import styled from "styled-components"
     
-function SnakeCell({ cellNumber }) {
+function SnakeCell({ cellNumber,player }) {
+    const cellSize = "30px"   
+    const [playerTile, setplayerTile] = useState("white")
+    useEffect(() => {
+     player ===cellNumber && setplayerTile("red")
+    }, [player])
+    
     
     const cellStyle = {
         "margin": "0",
         'border': 'solid',
-        'height': "5px",
-        "width":"5px"
+        'height': cellSize,
+        "width": cellSize,
+        "backgroundColor":playerTile
 
 
 }
 
   return (
-      <div  style={cellStyle}> </div>
+      <div  style={cellStyle}>{cellNumber} </div>
   )
 }
 
