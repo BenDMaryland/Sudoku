@@ -62,7 +62,6 @@ const CellStyle = styled.div`
   margin: 0px;
   .num {
     webkit-appearance: none;
-
     border: none;
     font-size: xx-large;
     height: 47px;
@@ -77,7 +76,6 @@ const CellStyle = styled.div`
     border: none;
     grid-template-columns: repeat(2, 1fr);
   }
-
   .note,
   .neg {
     webkit-appearance: none;
@@ -86,4 +84,4 @@ const CellStyle = styled.div`
     width: 27px;
     text-align: center;
   }
-`;
+`

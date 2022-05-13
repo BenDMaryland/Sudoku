@@ -1,7 +1,7 @@
 import React from 'react'
-import Board from './Board'
+import Board from './sudoku/Board'
 import { Routes, Route,Link } from "react-router-dom"
-import Snake from './Snake'
+import Snake from './snake/Snake'
 
 
 function Page() {
