@@ -12,10 +12,11 @@ function SnakeCell({ cellNumber, player, playerFollower, snakeFood }) {
   useEffect(() => {
 
 
-    if (player === cellNumber || playerFollower.includes(cellNumber)) { setplayerTile("green") }
+    if (player === cellNumber) { setplayerTile("red") }
+    else if (playerFollower.includes(cellNumber)) { setplayerTile("green") }
     else if (cellNumber === snakeFood) { setplayerTile("yellow") }
-    else { setplayerTile("white") }
-
+    else if (cellNumber %2 ===0){ setplayerTile("#1e2834") }
+    else { setplayerTile("#4a6280") }
 
 
 
@@ -34,7 +35,7 @@ function SnakeCell({ cellNumber, player, playerFollower, snakeFood }) {
   }
 
   return (
-    <div style={cellStyle}>{cellNumber} </div>
+    <div style={cellStyle}> </div>
   )
 }
 
