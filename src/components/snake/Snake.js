@@ -8,8 +8,8 @@ import SnakeCell from "./SnakeCell"
 
 function Snake() {
   const gridSize = 225
-
-  let columnSize = Math.sqrt(gridSize)
+  const columnSize = Math.sqrt(gridSize)
+  const startingpos = Math.floor(gridSize/2)
   const [player, setplayer] = useState(112)
   const [playerFollower, setplayerFollower] = useState([112, 112, 112, 112])
   const [snakeGrid, setsnakeGrid] = useState([...Array(gridSize).keys()])
@@ -34,38 +34,12 @@ function Snake() {
   function movePlayer(e) {
     setLastKey(e.keyCode)
     runs++
-    
-    e.keyCode === 87 && setplayer(player => player = player - 15)
-    e.keyCode === 83 && setplayer(player => player = player + 15)
+
+    e.keyCode === 87 && setplayer(player => player = player - columnSize)
+    e.keyCode === 83 && setplayer(player => player = player + columnSize)
     e.keyCode === 68 && setplayer(player => player + 1)
     e.keyCode === 65 && setplayer(player => player - 1)
   }
-
-  // console.log(lastKey)
-  // useEffect(() => {
-
-  //   function autoMover(lastKey) {
-  //     if (gameStarted === true) {
-  //       setTimeout(() => {
-  //         lastKey === 87 && setplayer(player => player = player - 15)
-  //         lastKey === 83 && setplayer(player => player = player + 15)
-  //         lastKey === 68 && setplayer(player => player + 1)
-  //         lastKey === 65 && setplayer(player => player - 1)
-  //         autoMover(lastKey)
-  //       }, "1000")
-  //     }
-  //   }
-  //   autoMover(lastKey)
-
-
-
-
-  // }, [gameStarted])
-
-
-
-
-
 
 
   // This  checks for user inout
@@ -79,17 +53,15 @@ function Snake() {
   /// This checks if the player is dead
   useEffect(() => {
 
-    if (0 > player || player > 224) { playerDeath(1) }
-    if (player % 15 === 0 && lastKey === 68) { playerDeath(2) }
-    if ((player - 14) % 15 === 0 && lastKey === 65) { playerDeath(3) }
+    if (0 > player || player > gridSize-1) { playerDeath(1) }
+    if (player % columnSize === 0 && lastKey === 68) { playerDeath(2) }
+    if ((player - columnSize) % columnSize === 0 && lastKey === 65) { playerDeath(3) }
     if (playerFollower.includes(player)) { playerDeath(4) }
   }, [player]);
 
 
   // moved the rest of the snake
   useEffect(() => {
-
-
     setplayerFollower(followers => followers.map((follower, i, arr) => {
       i === 0 ? follower = player : follower = arr[i - 1]
       return follower
@@ -101,8 +73,8 @@ function Snake() {
 
   function playerDeath(num) {
     console.log("You died", num)
-    setplayer(112)
-    setplayerFollower([112, 112, 112, 112])
+    setplayer(startingpos)
+    setplayerFollower([startingpos, startingpos, startingpos, startingpos])
   }
 
 
