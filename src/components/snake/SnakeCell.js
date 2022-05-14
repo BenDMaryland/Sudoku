@@ -11,7 +11,7 @@ function SnakeCell({ cellNumber, player, playerFollower }) {
 
   useEffect(() => {
 
-    player === cellNumber || playerFollower.includes(cellNumber) ? setplayerTile("red") : setplayerTile("white")
+    player === cellNumber || playerFollower.includes(cellNumber) ? setplayerTile("green") : setplayerTile("white")
  
 
 

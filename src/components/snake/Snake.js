@@ -1,17 +1,22 @@
 
 import React, { useEffect, useState } from "react"
 import styled from "styled-components"
+import { isWhileStatement } from "typescript"
 import SnakeCell from "./SnakeCell"
 
 
 
 function Snake() {
   const gridSize = 225
+
   let columnSize = Math.sqrt(gridSize)
   const [player, setplayer] = useState(112)
   const [playerFollower, setplayerFollower] = useState([112, 112, 112, 112])
   const [snakeGrid, setsnakeGrid] = useState([...Array(gridSize).keys()])
   const [lastKey, setLastKey] = useState()
+  const [CurrentMover, setCurrentMover] = useState(false)
+  let runs = 0
+
 
   const boardStyle = {
     'border': "solid",
@@ -25,22 +30,46 @@ function Snake() {
 
 
 
-
   //// This handles moving the snakes head 
+  function movePlayer(e) {
+    setLastKey(e.keyCode)
+    runs++
+    
+    e.keyCode === 87 && setplayer(player => player = player - 15)
+    e.keyCode === 83 && setplayer(player => player = player + 15)
+    e.keyCode === 68 && setplayer(player => player + 1)
+    e.keyCode === 65 && setplayer(player => player - 1)
+  }
+
+  // console.log(lastKey)
+  // useEffect(() => {
+
+  //   function autoMover(lastKey) {
+  //     if (gameStarted === true) {
+  //       setTimeout(() => {
+  //         lastKey === 87 && setplayer(player => player = player - 15)
+  //         lastKey === 83 && setplayer(player => player = player + 15)
+  //         lastKey === 68 && setplayer(player => player + 1)
+  //         lastKey === 65 && setplayer(player => player - 1)
+  //         autoMover(lastKey)
+  //       }, "1000")
+  //     }
+  //   }
+  //   autoMover(lastKey)
+
+
+
+
+  // }, [gameStarted])
+
+
+
+
+
+
+
+  // This  checks for user inout
   useEffect(() => {
-
-    function movePlayer(e) {
-      setLastKey(e.keyCode)
-
-      e.keyCode === 87 && setplayer(player => player = player - 15)
-      e.keyCode === 83 && setplayer(player => player = player + 15)
-      e.keyCode === 68 && setplayer(player => player + 1)
-      e.keyCode === 65 && setplayer(player => player - 1)
-    }
-
-
-
-
     document.addEventListener('keydown', movePlayer);
     return function cleanup() {
       document.removeEventListener('keydown', movePlayer);
