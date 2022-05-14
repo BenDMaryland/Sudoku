@@ -7,14 +7,15 @@ import SnakeCell from "./SnakeCell"
 
 
 function Snake() {
-  const gridSize = 225
+  const gridSize = 441
   const columnSize = Math.sqrt(gridSize)
-  const startingpos = Math.floor(gridSize/2)
+  const startingpos = Math.floor(gridSize / 2)
   const [player, setplayer] = useState(112)
   const [playerFollower, setplayerFollower] = useState([112, 112, 112, 112])
   const [snakeGrid, setsnakeGrid] = useState([...Array(gridSize).keys()])
   const [lastKey, setLastKey] = useState()
   const [CurrentMover, setCurrentMover] = useState(false)
+  const [snakeFood, setsnakeFood] = useState(115)
   let runs = 0
 
 
@@ -30,16 +31,6 @@ function Snake() {
 
 
 
-  //// This handles moving the snakes head 
-  function movePlayer(e) {
-    setLastKey(e.keyCode)
-    runs++
-
-    e.keyCode === 87 && setplayer(player => player = player - columnSize)
-    e.keyCode === 83 && setplayer(player => player = player + columnSize)
-    e.keyCode === 68 && setplayer(player => player + 1)
-    e.keyCode === 65 && setplayer(player => player - 1)
-  }
 
 
   // This  checks for user inout
@@ -50,14 +41,17 @@ function Snake() {
     }
   }, []);
 
-  /// This checks if the player is dead
+  /// This checks if the player is dead or eating
   useEffect(() => {
 
-    if (0 > player || player > gridSize-1) { playerDeath(1) }
+    if (0 > player || player > gridSize - 1) { playerDeath(1) }
     if (player % columnSize === 0 && lastKey === 68) { playerDeath(2) }
     if ((player - columnSize) % columnSize === 0 && lastKey === 65) { playerDeath(3) }
     if (playerFollower.includes(player)) { playerDeath(4) }
+    if (player === snakeFood) { foodHandler() }
   }, [player]);
+
+
 
 
   // moved the rest of the snake
@@ -69,6 +63,10 @@ function Snake() {
 
   }, [player])
 
+  function foodHandler() {
+    setplayerFollower(playerFollowers => [...playerFollowers, playerFollowers.slice(-1)])
+    setsnakeFood(food => food = Math.floor(Math.random() * gridSize))
+  }
 
 
   function playerDeath(num) {
@@ -78,9 +76,20 @@ function Snake() {
   }
 
 
+  //// This handles moving the snakes head 
+  function movePlayer(e) {
+    setLastKey(e.keyCode)
+    runs++
+
+    e.keyCode === 87 && setplayer(player => player = player - columnSize)
+    e.keyCode === 83 && setplayer(player => player = player + columnSize)
+    e.keyCode === 68 && setplayer(player => player + 1)
+    e.keyCode === 65 && setplayer(player => player - 1)
+  }
+
   return (
     <div style={boardStyle}>
-      {snakeGrid.map((grid, i) => (<SnakeCell playerFollower={playerFollower} key={i} player={player} cellNumber={i} />))}
+      {snakeGrid.map((grid, i) => (<SnakeCell snakeFood={snakeFood} playerFollower={playerFollower} key={i} player={player} cellNumber={i} />))}
     </div>
   )
 }
