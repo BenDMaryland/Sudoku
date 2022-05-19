@@ -1,6 +1,6 @@
-import { tSModuleDeclaration } from "@babel/types"
+
 import React, { useEffect, useState } from "react"
-import { unstable_shouldYield } from "scheduler"
+
 import styled from "styled-components"
 
 function SnakeCell({ cellNumber, player, playerFollower, snakeFood }) {
