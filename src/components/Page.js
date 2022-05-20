@@ -22,10 +22,10 @@ function Page() {
       <Link className="nav-link" to="/"><button color="inherit">Sudoku</button></Link>
       <Link className="nav-link" to="/snake"><button color="inherit">Snake</button></Link>
       <Link className="nav-link" to="/maze"><button color="inherit">Maze</button></Link>
-      
+
       <Routes>
         <Route exact path='/snake' element={<Snake />} />
-        <Route exact path='/maze' element={<MazeBoard />} />
+        <Route exact path='/maze' element={<React.StrictMode><MazeBoard /></React.StrictMode>} />
         <Route path='/*' element={<Board />} />
       </Routes>
 
