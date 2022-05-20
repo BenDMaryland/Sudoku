@@ -6,7 +6,7 @@ import MazeCell from './MazeCell'
 
 function MazeBoard() {
 
-    const gridSize = 441
+    const gridSize = 900
     const columnSize = Math.sqrt(gridSize)
     const startingPos = Math.floor(Math.random() * gridSize)
     const endingPos = Math.floor(Math.random() * gridSize)
@@ -30,7 +30,7 @@ function MazeBoard() {
 
         let blockedArray = mazeGrid.filter(cell => (cell.block === true) && cell.block).map(cell => cell.num)
 
-        for (let i = 1; i != 20; i++) {
+        for (let i = 1; i != 30; i++) {
 
             console.log(i)
             newPaths = newPaths.map(cell => {
@@ -43,6 +43,7 @@ function MazeBoard() {
 
             newPaths = newPaths.flat().filter(cell => {
                 if (blockedArray.includes(cell)) { return false }
+                else if (cell < 0 || cell > gridSize) { return false }
                 else { return true }
             })
 
@@ -59,6 +60,14 @@ function MazeBoard() {
 
 
     useEffect(() => {
+        //adding a wall 
+        setMazeGrid(grid => grid.map(cell => {
+                if (cell.num < columnSize) { cell.block = true }
+                if (cell.num > gridSize - columnSize) { cell.block = true }
+                if (cell.num % columnSize === 0) { cell.block = true }
+                if (cell.num % columnSize === columnSize - 1) { cell.block = true }
+        }))
+
         mazeSolver()
 
     }, [])
