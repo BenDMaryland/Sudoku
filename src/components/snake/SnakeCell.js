@@ -1,9 +1,9 @@
-import { tSModuleDeclaration } from "@babel/types"
+
 import React, { useEffect, useState } from "react"
-import { unstable_shouldYield } from "scheduler"
+
 import styled from "styled-components"
 
-function SnakeCell({ cellNumber, player, playerFollower }) {
+function SnakeCell({ cellNumber, player, playerFollower, snakeFood }) {
   const cellSize = "30px"
   const [playerTile, setplayerTile] = useState("white")
 
@@ -11,8 +11,13 @@ function SnakeCell({ cellNumber, player, playerFollower }) {
 
   useEffect(() => {
 
-    player === cellNumber || playerFollower.includes(cellNumber) ? setplayerTile("red") : setplayerTile("white")
- 
+
+    if (player === cellNumber) { setplayerTile("red") }
+    else if (playerFollower.includes(cellNumber)) { setplayerTile("green") }
+    else if (cellNumber === snakeFood) { setplayerTile("yellow") }
+    else if (cellNumber %2 ===0){ setplayerTile("#1e2834") }
+    else { setplayerTile("#4a6280") }
+
 
 
   }, [player])
@@ -30,7 +35,7 @@ function SnakeCell({ cellNumber, player, playerFollower }) {
   }
 
   return (
-    <div style={cellStyle}>{cellNumber} </div>
+    <div style={cellStyle}> </div>
   )
 }
 
