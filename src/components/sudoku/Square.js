@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Cell from "./Cell";
 
 
-function Square({ i, boardNums, solution, showSolution,NumberHighlighter,activeNumber }) {
+function Square({ i, boardNums, solution, showSolution, NumberHighlighter, activeNumber, winHandler }) {
   const [cells, setcells] = useState([]);
 
   useEffect(() => {
@@ -18,11 +18,10 @@ function Square({ i, boardNums, solution, showSolution,NumberHighlighter,activeN
 
       }
 
-
-
       ]))
     }
   }, []);
+
 
 
   return (
@@ -34,6 +33,7 @@ function Square({ i, boardNums, solution, showSolution,NumberHighlighter,activeN
         activeNumber={activeNumber}
         boardNums={cell.boardNums}
         number={cell.number}
+        winHandler={winHandler}
         showSolution={showSolution}
       />)}</SetStyle>
   )

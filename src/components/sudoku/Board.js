@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Square from "./Square";
-
 import styled from "styled-components";
-import { func } from "prop-types";
-
-
 
 function Board() {
     const [squares, setSquares] = useState([]);
     const [showTheSolutions, setshowTheSolutions] = useState(false)
     const [activeNumber, setactiveNumber] = useState({})
+    const [currentBoard, setcurrentBoard] = useState([[], [], [], [], [], [], [], [], []])
+    const [FinalBoard, setFinalBoard] = useState([[], [], [], [], [], [], [], [], []])
 
     function validHandler(array) {
 
@@ -331,19 +329,86 @@ function Board() {
 
     }
 
-    function NumberHighlighter(e,number) {
+    function NumberHighlighter(e, number) {
         e.target.select()
-     console.log(activeNumber%9)
         setactiveNumber({
-            active:e.target.value,
-            number:number})
+            active: e.target.value,
+            number: number
+        })
+
+
+
+
+        let squareY = Math.floor(number / 9)
+        let squareX = number - (squareY * 9)
+        let row
+        let column
+
+        squareY < 3 ?
+            squareX < 3 ? row = 0
+                : squareX < 6 ? row = 1
+                    : row = 2
+            : squareY < 6 ?
+                squareX < 3 ? row = 3
+                    : squareX < 6 ? row = 4
+                        : row = 5
+                :
+                squareX < 3 ? row = 6
+                    : squareX < 6 ? row = 7
+                        : row = 8
+
+
+        squareY % 3 === 0 ?
+            squareX % 3 === 0 ? column = 0
+                : squareX % 3 === 1 ? column = 1
+                    : column = 2
+            : squareY % 3 === 1 ?
+                squareX % 3 === 0 ? column = 3
+                    : squareX % 3 === 1 ? column = 4
+                        : column = 5
+                :
+                squareX % 3 === 0 ? column = 6
+                    : squareX % 3 === 1 ? column = 7
+                        : column = 8
+
+        console.log(squareY)
+        setactiveNumber({
+            active: e.target.value,
+            square: squareY,
+            number: number,
+            column: column,
+            row: row
+        })
 
     }
+
+    function winHandler(e, number) {
+
+        let squareY = Math.floor(number / 9)
+        let squareX = number - (squareY * 9)
+        let newBoard = [...currentBoard]
+        let gameOver = false
+
+        newBoard[squareY][squareX] = parseInt(e.target.value)
+        setcurrentBoard(newBoard)
+
+
+        for (let i = 0; i < 80; i++) {
+        console.log("hello",newBoard.flat()[i], FinalBoard.flat()[i],i)
+           if( newBoard.flat()[i] != FinalBoard.flat()[i]) { gameOver=true}
+
+        }
+        if (gameOver = true) alert("you won!")
+        console.log("here we go", gameOver )
+    }
+
     useEffect(() => {
         if (squares.length < 10) {
             let solutionBoard = boardMaker()
             let finalBoard = structuredClone(solutionBoard)
             boardSubtractor(finalBoard)
+            setcurrentBoard(finalBoard)
+            setFinalBoard(solutionBoard)
 
             for (let i = 0; i < 9; i++) {
                 setSquares(
@@ -369,12 +434,13 @@ function Board() {
             </p>
             <button onClick={() => showSolution()}>Show solutions</button>
 
-            <BoardStyle>{squares.map((square) =>
+            <BoardStyle  >{squares.map((square) =>
                 <Square
                     solution={square.solution}
                     boardNums={square.boardNums}
                     i={square.i}
                     key={square.key}
+                    winHandler={winHandler}
                     activeNumber={activeNumber}
                     showSolution={showTheSolutions}
                     NumberHighlighter={NumberHighlighter} />)}</BoardStyle>
