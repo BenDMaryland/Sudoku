@@ -1,35 +1,52 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-function Cell({ solution, number, boardNums }) {
-  const [num, setnum] = useState("");
+function Cell({ solution, number, boardNums, showSolution, NumberHighlighter, activeNumber }) {
+  const [bigNumber, setnum] = useState("");
   const [note, setnote] = useState("");
-  const [neg, setneg] = useState("");
+  const [theSolution, setneg] = useState("");
+  const [background, setbackground] = useState("white")
+
 
   useEffect(() => {
-    setnum((num) => (num = boardNums));
-    setneg(neg => (neg = solution))
+    setnum((bigNumber) => (bigNumber = boardNums));
+
   }, []);
+
+  useEffect(() => {
+
+    showSolution ? setneg(theSolution => (theSolution = solution)) : setneg(theSolution => (theSolution = ""))
+  }, [showSolution])
+
+
 
   function numHanlder(e) {
 
-    setnum((num) => (""));
-    setnum((num) => (num = e.target.value));
-    console.log(e.target.value, solution)
+    setnum((bigNumber) => (""));
+    setnum((bigNumber) => (bigNumber = e.target.value));
     e.target.value == solution ? e.target.style.color = "blue" : e.target.style.color = "red"
   }
 
+  useEffect(() => {
+    console.log(background,activeNumber,bigNumber)
+    activeNumber == bigNumber ? setbackground("lightBlue") : setbackground("white")
+  }, [activeNumber])
+
+  const cellerStyle = {
+    backgroundColor: background
+  }
+
   return (
-    <CellStyle >
+    <CellStyle  style={cellerStyle}>
 
       <input
-        onClick={(e) => e.target.select()}
-        className="num"
-        style={{ color: "black" }}
+       style={cellerStyle}
+        onClick={(e => NumberHighlighter(e, solution))}
+        className="bigNumber"
         type={number}
         maxLength={1}
-        value={num}
-        // onFocus={(()=> setnum(num=>num=""))}
+        value={bigNumber}
+        // onFocus={(()=> setnum(bigNumber=>bigNumber=""))}
         onChange={(e) => numHanlder(e)}
       ></input>
 
@@ -43,9 +60,9 @@ function Cell({ solution, number, boardNums }) {
         ></input>
 
         <input
-          className="neg"
+          className="theSolution"
           style={{ color: "red" }}
-          value={neg}
+          value={theSolution}
           onChange={(e) => setneg(e.target.value)}
         ></input>
       </div>
@@ -60,7 +77,7 @@ const CellStyle = styled.div`
   height: 60px;
   width: 60px;
   margin: 0px;
-  .num {
+  .bigNumber {
     webkit-appearance: none;
     border: none;
     font-size: xx-large;
@@ -77,7 +94,7 @@ const CellStyle = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
   .note,
-  .neg {
+  .theSolution {
     webkit-appearance: none;
     border: none;
     height: 10px;

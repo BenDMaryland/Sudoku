@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import Square from "./Square";
 
 import styled from "styled-components";
+import { func } from "prop-types";
+
+
 
 function Board() {
     const [squares, setSquares] = useState([]);
+    const [showTheSolutions, setshowTheSolutions] = useState(false)
+    const [activeNumber, setactiveNumber] = useState()
 
     function validHandler(array) {
 
@@ -30,7 +35,7 @@ function Board() {
 
         let result = true
 
-        
+
 
         for (let i = 0; i != 9; i++) {
 
@@ -139,7 +144,7 @@ function Board() {
 
             // ///checking squares
             // // console.log(array[0], i)
-  
+
 
             for (let e = 0; e != 9; e++) {
 
@@ -296,12 +301,13 @@ function Board() {
                 boardSolution[y][x] = shuffledNums[e]
 
                 if (validHandler(boardSolution)) {
-         
-                    break }
+
+                    break
+                }
             }
             if (!validHandler(boardSolution)) {
                 s++
-            //    console.log("Total I 's:", f, "ya boy failed:  ", s, boardSolution)
+                //    console.log("Total I 's:", f, "ya boy failed:  ", s, boardSolution)
                 i = -1
                 boardSolution = [
                     ["", "", "", "", "", "", "", "", ""],
@@ -320,23 +326,58 @@ function Board() {
         return boardSolution
     }
 
+    function showSolution() {
+        setshowTheSolutions(showthSolution => !showthSolution)
+
+    }
+
+    function NumberHighlighter(e,solution) {
+        e.target.select()
+        console.log(e.target.value)
+        setactiveNumber(e.target.value)
+
+    }
     useEffect(() => {
-  let solutionBoard = boardMaker()
-   //let solutionBoard = finerBoyFull
-        let finalBoard = structuredClone(solutionBoard)
+        if (squares.length < 10) {
+            let solutionBoard = boardMaker()
+            let finalBoard = structuredClone(solutionBoard)
+            boardSubtractor(finalBoard)
 
-        // setSquares((squares) => (squares = []));
-        boardSubtractor(finalBoard)
-       // console.log(solutionBoard, finalBoard)
+            for (let i = 0; i < 9; i++) {
+                setSquares(
+                    (squares) => (squares = [...squares,
 
-        for (let i = 0; i < 9; i++) {
-            setSquares(
-                (squares) => (squares = [...squares, <Square solution={solutionBoard[i]} boardNums={finalBoard[i]} key={i} i={i} />])
-            );
+                    {
+                        solution: solutionBoard[i],
+                        boardNums: finalBoard[i],
+                        key: i,
+                        i: i
+                    }
+                    ])
+                );
+            }
         }
     }, [])
 
-    return <BoardStyle>{squares.map((square) => square)}</BoardStyle>;
+    return (
+        <>
+            <h2>Sudoku</h2>
+            <p>Welcome to my sudoku game! Each board is created on the flys, and is ensured to be perfectly valid.
+                Once the board is created it will remove each item to make it human solvable!
+            </p>
+            <button onClick={() => showSolution()}>Show solutions</button>
+
+            <BoardStyle>{squares.map((square) =>
+                <Square
+                    solution={square.solution}
+                    boardNums={square.boardNums}
+                    i={square.i}
+                    key={square.key}
+                    activeNumber={activeNumber}
+                    showSolution={showTheSolutions}
+                    NumberHighlighter={NumberHighlighter} />)}</BoardStyle>
+        </>
+    )
 }
 
 export default Board;
@@ -358,182 +399,4 @@ let finerBoyFull = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
 [1, 7, 6, 9, 5, 8, 4, 3, 2],
 [2, 9, 3, 1, 4, 6, 7, 8, 5],
 [4, 8, 5, 3, 2, 7, 9, 1, 6]]
-
-
-    // // function solver(array) {
-    // //     //debugger
-    // //     let tester = structuredClone(array)
-    // //     let arr = [...Array(81).keys()]
-    // //     let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-    // //     let shuffledNums = shuffler(nums)
-    // //     let num
-    // //     let x
-    // //     let y
-    // //     while (!isComplete(tester)) {
-    // //         console.log("first ", tester, array)
-    // //         for (let i = 0; i != 81; i++) {
-    // //             shuffledNums = shuffler(nums)
-    // //             num = arr[i]
-    // //             y = Math.floor(num / 9)
-    // //             x = num - (y * 9)
-    // //             if (tester[y][x] === "") {
-    // //                 for (let e = 0; e != 9; e++) {
-    // //                     tester[y][x] = shuffledNums[e]
-    // //                     console.log(num, shuffledNums[e], validHandler(tester), tester)
-    // //                     if (validHandler(tester)) { break }
-    // //                 }
-
-    // //                 if (!validHandler(tester)) { tester = structuredClone(array) }
-    // //             }
-
-    // //             //       console.log("in  loop:", test)
-    // //         }
-
-    // //         if (!validHandler(tester)) {
-    // //             console.log("array is ", array, tester)
-    // //             //  test = structuredClone(array)
-    // //             shuffledNums = shuffler(nums)
-
-    // //         }
-
-    // //     }
-    // //     if (validHandler(tester)) { console.log("Val;iddd") }
-    // //     else { console.log("invalid") }
-    // //     console.log("out  loop:", tester, array)
-    // // }
-
-
-
-
-
-    // function solvable(arrays) {
-
-    //     let row1 = [];
-    //     let row2 = [];
-    //     let row3 = [];
-    //     let row4 = [];
-    //     let row5 = [];
-    //     let row6 = [];
-    //     let row7 = [];
-    //     let row8 = [];
-    //     let row9 = [];
-
-    //     let col1 = [];
-    //     let col2 = [];
-    //     let col3 = [];
-    //     let col4 = [];
-    //     let col5 = [];
-    //     let col6 = [];
-    //     let col7 = [];
-    //     let col8 = [];
-    //     let col9 = [];
-
-
-
-
-
-
-    //     let result = true
-
-
-    //     for (let i = 0; i != 9; i++) {
-
-    //         // ///checking squares
-    //         // // console.log(array[0], i)
-    //         // hasDuplicates(arrays[i]) && (result = false)
-
-    //         for (let e = 0; e != 9; e++) {
-
-    //             /// to check Rows we want to check every row3
-    //             i < 3 ?
-    //                 e < 3 ? (row1 = [...row1, arrays[i][e]])
-    //                     : e < 6 ? (row2 = [...row2, arrays[i][e]])
-    //                         : (row3 = [...row3, arrays[i][e]])
-    //                 : i < 6 ?
-    //                     e < 3 ? (row4 = [...row4, arrays[i][e]])
-    //                         : e < 6 ? (row5 = [...row5, arrays[i][e]])
-    //                             : (row6 = [...row6, arrays[i][e]])
-    //                     :
-    //                     e < 3 ? (row7 = [...row7, arrays[i][e]])
-    //                         : e < 6 ? (row8 = [...row8, arrays[i][e]])
-    //                             : (row9 = [...row9, arrays[i][e]]);
-
-    //             ///to check columns it's every thrird
-    //             i % 3 === 0 ?
-    //                 e % 3 === 0 ? (col1 = [...col1, arrays[i][e]])
-    //                     : e % 3 === 1 ? (col2 = [...col2, arrays[i][e]])
-    //                         : (col3 = [...col3, arrays[i][e]])
-    //                 : i % 3 === 1 ?
-    //                     e % 3 === 0 ? (col4 = [...col4, arrays[i][e]])
-    //                         : e % 3 === 1 ? (col5 = [...col5, arrays[i][e]])
-    //                             : (col6 = [...col6, arrays[i][e]])
-    //                     :
-    //                     e % 3 === 0 ? (col7 = [...col7, arrays[i][e]])
-    //                         : e % 3 === 1 ? (col8 = [...col8, arrays[i][e]])
-    //                             : (col9 = [...col9, arrays[i][e]]);
-
-    //         }
-
-    //     }
-
-
-
-
-    // }
-
-
-
-
-
-
-
-    // function isComplete(array) {
-    //     let result = true
-
-    //     for (let i = 0; i != 9; i++) {
-    //         array[i].filter(num => num === "").length != 0 && (result = false)
-    //         //    console.log(array[i].filter(num => num === "").length, array[i])
-
-    //     }
-
-    //     return result
-    // }
-
-
-
-// let fineBoy = [[7, 6, 9, 5, 1, 4, 3, 2, 8],
-// [2, 8, 4, 6, 7, 3, 9, 1, 5],
-// [1, 5, 3, 9, 2, 8, 7, 6, 4],
-// [8, 4, 7, 9, 5, 1, 2, 3, 6],
-// [3, 9, 6, 4, 2, 7, 8, 5, 1],
-// [5, 1, 2, 3, 8, 6, 4, 7, 9],
-// [1, 8, 3, 4, 9, 5, 6, 7, 2],
-// [7, 4, 2, 1, 6, 8, 5, 3, 9],
-// [6, 9, 5, 2, 3, 7, 8, 4, 1]]
-
-
-// let test1 = [
-//     [6, '', '', 8, 1, 5, '', '', ''],
-//     ['', 7, '', '', '', '', '', '', 9],
-//     ['', '', 1, '', '', '', 6, 4, 8],
-//     ['', '', 3, '', '', 9, '', '', ''],
-//     [4, '', '', 8, 3, '', 9, '', 7],
-//     ['', 7, '', 5, '', '', 8, '', ''],
-//     [1, 7, '', '', '', '', '', 3, ''],
-//     [2, 9, 3, '', 4, '', 7, 8, ''],
-//     ['', '', '', '', 2, 7, 9, '', 6]
-// ]
-
-
-
-
-// let board = [[6, 9, 4, 8, 1, 5, 3, 2, 7],
-// [3, 7, 8, 6, 2, 4, 5, 1, 9],
-// [2, 5, 1, 7, 9, 3, 6, 4, 8],
-// [5, 8, 3, 7, 4, 9, "", 6, 1],
-// [4, 6, "", 8, 3, 1, 9, 5, 7],
-// [1, 7, 9, 5, 6, 2, 8, 3, 4],
-// [1, 7, 6, 9, 5, 8, 4, 3, 2],
-// [2, 9, 3, 1, 4, 6, 7, 8, 5],
-// [4, 8, 5, 3, 2, 7, 9, 1, 6]]
 
