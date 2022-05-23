@@ -9,7 +9,7 @@ import { func } from "prop-types";
 function Board() {
     const [squares, setSquares] = useState([]);
     const [showTheSolutions, setshowTheSolutions] = useState(false)
-    const [activeNumber, setactiveNumber] = useState()
+    const [activeNumber, setactiveNumber] = useState({})
 
     function validHandler(array) {
 
@@ -331,10 +331,12 @@ function Board() {
 
     }
 
-    function NumberHighlighter(e,solution) {
+    function NumberHighlighter(e,number) {
         e.target.select()
-        console.log(e.target.value)
-        setactiveNumber(e.target.value)
+     console.log(activeNumber%9)
+        setactiveNumber({
+            active:e.target.value,
+            number:number})
 
     }
     useEffect(() => {
