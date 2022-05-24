@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 
-function Cell({ solution, number, boardNums, showSolution, NumberHighlighter, activeNumber, winHandler}) {
+function Cell({ solution, number, boardNums, showSolution, NumberHighlighter, activeNumber, winHandler }) {
   const [bigNumber, setnum] = useState("");
   const [note, setnote] = useState("");
   const [theSolution, setneg] = useState("");
   const [background, setbackground] = useState("white")
+
 
 
   let squareY = Math.floor(number / 9)
@@ -55,14 +56,19 @@ function Cell({ solution, number, boardNums, showSolution, NumberHighlighter, ac
 
   function numHanlder(e) {
 
+
+
     setnum((bigNumber) => (""));
     setnum((bigNumber) => (bigNumber = parseInt(e.target.value)));
     e.target.value == solution ? e.target.style.color = "blue" : e.target.style.color = "red"
-    winHandler(e,number)
+    winHandler(e, number)
 
   }
 
   useEffect(() => {
+
+
+
 
     if (activeNumber.active == "") { setbackground("white") }
     else if (activeNumber.active == bigNumber) { setbackground("#18aad7") }
@@ -71,8 +77,11 @@ function Cell({ solution, number, boardNums, showSolution, NumberHighlighter, ac
   }, [activeNumber])
 
   const cellerStyle = {
-    backgroundColor: background
+    backgroundColor: background,
+
+  
   }
+
 
   return (
     <CellStyle  >
@@ -81,25 +90,28 @@ function Cell({ solution, number, boardNums, showSolution, NumberHighlighter, ac
         style={cellerStyle}
         onFocus={(e => NumberHighlighter(e, number))}
         className="bigNumber"
-        type={number}
+        type={"number"}
         maxLength={1}
         value={bigNumber}
+
         onChange={(e) => numHanlder(e)}
       ></input>
 
       <div className="notes">
 
-        <input
+        {/* <input
           className="note"
           style={cellerStyle}
+          type={"number"}
           value={number}
           onChange={(e) => setnote(e.target.value)}
-        ></input>
+        ></input> */}
 
         <input
           className="theSolution"
           style={cellerStyle}
           value={theSolution}
+          type={"number"}
           onChange={(e) => setneg(e.target.value)}
         ></input>
       </div>
@@ -131,12 +143,13 @@ const CellStyle = styled.div`
    border: none;
    grid-template-columns: repeat(2, 1fr);
  }
- .note,
+ /* .note, */
  .theSolution {
    webkit-appearance: none;
    border: none;
    height: 10px;
-   width: 27px;
+      width: 58px;
+   /* width: 27px; */
    text-align: center;
  }
 `

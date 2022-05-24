@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import Square from "./Square";
 import styled from "styled-components";
 
+//Easiest way to understand this is to follow the useEffect at the bottom of the page :)
+
 function Board() {
+    // Here we keep the board -- this gets passed down as props to the squares component and then to the cells component
     const [squares, setSquares] = useState([]);
     const [showTheSolutions, setshowTheSolutions] = useState(false)
     const [activeNumber, setactiveNumber] = useState({})
+
+    // these are just used for validating the WinCon 
     const [currentBoard, setcurrentBoard] = useState([[], [], [], [], [], [], [], [], []])
     const [FinalBoard, setFinalBoard] = useState([[], [], [], [], [], [], [], [], []])
 
@@ -383,7 +388,7 @@ function Board() {
     }
 
     function winHandler(e, number) {
-
+        NumberHighlighter(e, number)
         let squareY = Math.floor(number / 9)
         let squareX = number - (squareY * 9)
         let newBoard = [...currentBoard]
@@ -393,36 +398,38 @@ function Board() {
         setcurrentBoard(newBoard)
 
 
-        for (let i = 0; i < 80; i++) {
-        console.log("hello",newBoard.flat()[i], FinalBoard.flat()[i],i)
-           if( newBoard.flat()[i] != FinalBoard.flat()[i]) { gameOver=true}
 
+        for (let i = 0; i < 80; i++) {
+            if (newBoard.flat()[i] != FinalBoard.flat()[i]) { gameOver = true }
         }
-        if (gameOver = true) alert("you won!")
-        console.log("here we go", gameOver )
+        if (!gameOver) alert("you won!")
+
     }
 
     useEffect(() => {
-        if (squares.length < 10) {
-            let solutionBoard = boardMaker()
-            let finalBoard = structuredClone(solutionBoard)
-            boardSubtractor(finalBoard)
-            setcurrentBoard(finalBoard)
-            setFinalBoard(solutionBoard)
+        // resets squares on reload ---- this helps to prevent a bug the causes multiple boards to appear 
+        setSquares([])
+        //  step one is to make a fully valid board that is finished  
+        let solutionBoard = boardMaker()
+        let finalBoard = structuredClone(solutionBoard)
+        // this removes numbers in a way that is human solvable 
+        boardSubtractor(finalBoard)
 
-            for (let i = 0; i < 9; i++) {
-                setSquares(
-                    (squares) => (squares = [...squares,
+        //these are just for validating the WinCon :) 
+        setcurrentBoard(finalBoard)
+        setFinalBoard(solutionBoard)
 
-                    {
-                        solution: solutionBoard[i],
-                        boardNums: finalBoard[i],
-                        key: i,
-                        i: i
-                    }
-                    ])
-                );
-            }
+        for (let i = 0; i < 9; i++) {
+            setSquares(
+                (squares) => (squares = [...squares,
+                {
+                    solution: solutionBoard[i],
+                    boardNums: finalBoard[i],
+                    key: i,
+                    i: i
+                }
+                ])
+            );
         }
     }, [])
 
