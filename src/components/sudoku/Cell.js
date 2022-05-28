@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-
+import "./cell.css"
 
 function Cell({ solution, number, boardNums, showSolution, NumberHighlighter, activeNumber, winHandler }) {
   const [bigNumber, setnum] = useState("");
@@ -79,7 +79,8 @@ function Cell({ solution, number, boardNums, showSolution, NumberHighlighter, ac
   const cellerStyle = {
     backgroundColor: background,
 
-  
+
+
   }
 
 
