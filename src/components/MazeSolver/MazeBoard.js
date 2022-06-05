@@ -16,7 +16,6 @@ function MazeBoard() {
     const [blocks, setblocks] = useState(220)
     const [pathsArray, setpathsArray] = useState([startingPos])
 
-    const [done, setdone] = useState(0)
     const boardStyle = {
         'border': "solid",
         'display': "grid",
@@ -24,10 +23,6 @@ function MazeBoard() {
         'width': "fit-content",
         'height': "fit-content",
     }
-function gridMaker(){
-
-
-}
 
     function mazeSolver() {
         let newPaths = [startingPos]
@@ -40,55 +35,50 @@ function gridMaker(){
 
 
 
-                newPaths = newPaths.map(cell => {
-                    let rightPath = cell + 1
-                    let leftPath = cell - 1
-                    let topPath = cell - (columnSize * 1)
-                    let bottomPath = cell + (columnSize * 1)
+            newPaths = newPaths.map(cell => {
+                let rightPath = cell + 1
+                let leftPath = cell - 1
+                let topPath = cell - (columnSize * 1)
+                let bottomPath = cell + (columnSize * 1)
 
-                    return [cell, rightPath, leftPath, topPath, bottomPath]
-                })
+                return [cell, rightPath, leftPath, topPath, bottomPath]
+            })
 
-                newPaths = newPaths.flat().filter(cell => {
-                    if (blockedArray.includes(cell)) { return false }
-                    else if (cell < 0 || cell > gridSize) { return false }
-                    else { return true }
-                })
+            newPaths = newPaths.flat().filter(cell => {
+                if (blockedArray.includes(cell)) { return false }
+                else if (cell < 0 || cell > gridSize) { return false }
+                else { return true }
+            })
 
-                setMazeGrid(mazeGrid.map(cell => {
-                    if (newPaths.find(path => path == cell.num)) { cell.path = true }
-                    return cell
-                }))
+            setMazeGrid(mazeGrid.map(cell => {
+                if (newPaths.find(path => path == cell.num)) { cell.path = true }
+                return cell
+            }))
 
-                newPaths = [...new Set(newPaths)]
-              if (newPaths.find(cell => cell === endingPos)) { break}
+            newPaths = [...new Set(newPaths)]
+            if (newPaths.find(cell => cell === endingPos)) { break }
         }
         setpathsArray([...new Set(newPaths)])
     }
 
-
-
     useEffect(() => {
-    console.log(mazeGrid)
+        console.log(mazeGrid)
         setMazeGrid(grid => grid.map(cell => {
-if (cell !==undefined){
-            if (cell.num < columnSize) { cell.block = true }
-            if (cell.num > gridSize - columnSize) { cell.block = true }
-            if (cell.num % columnSize === 0) { cell.block = true }
-            if (cell.num % columnSize === columnSize - 1) { cell.block = true }
-}
+            if (cell !== undefined) {
+                if (cell.num < columnSize) { cell.block = true }
+                if (cell.num > gridSize - columnSize) { cell.block = true }
+                if (cell.num % columnSize === 0) { cell.block = true }
+                if (cell.num % columnSize === columnSize - 1) { cell.block = true }
+            }
         }))
         // let rand = mazeGrid.filter(cell => (!cell.block)).map(cell => cell.num).map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value)[0]
         // console.log(rand)
 
     }, [])
 
-
     useEffect(() => {
-            mazeSolver()
+        mazeSolver()
     }, [])
-
-
 
     if (pathsArray.length === 1) return <div>s</div>
 
