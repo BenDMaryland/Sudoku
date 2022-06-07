@@ -436,9 +436,7 @@ function Board() {
     return (
         <>
             <h2>Sudoku</h2>
-            <p>Welcome to my sudoku game! Each board is created on the flys, and is ensured to be perfectly valid.
-                Once the board is created it will remove each item to make it human solvable!
-            </p>
+
             <button onClick={() => showSolution()}>Show solutions</button>
 
             <BoardStyle  >{squares.map((square) =>
@@ -451,6 +449,17 @@ function Board() {
                     activeNumber={activeNumber}
                     showSolution={showTheSolutions}
                     NumberHighlighter={NumberHighlighter} />)}</BoardStyle>
+
+
+            <p>Welcome to my sudoku game!  How does it work?
+                <ul>
+                    <li>A board is created.  This is done by starting with an empty board, we then add a random number and check if it is valid.</li>
+                    <li>Once a board is created we then work on taking away numbers in a way that is human solvable. ATM this ends up being easy boards but I am working on a way for hard boards to exist to </li>
+                    <li>Next the board is rendered, and we have event handlers to check if a solution entered is valid</li>
+                </ul>
+                This game still has a lot to add, such as a hard mode, styling,
+
+            </p>
         </>
     )
 }

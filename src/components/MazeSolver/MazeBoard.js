@@ -91,6 +91,7 @@ function MazeBoard() {
             </div>
         </div>
     )
+
 }
 
 export default MazeBoard
