@@ -457,8 +457,8 @@ function Board() {
                     <li>Once a board is created we then work on taking away numbers in a way that is human solvable. ATM this ends up being easy boards but I am working on a way for hard boards to exist to </li>
                     <li>Next the board is rendered, and we have event handlers to check if a solution entered is valid</li>
                 </ul>
-                This game still has a lot to add, such as a hard mode, styling,
-
+                This game still has a lot to add, such as a hard mode, styling, cleaning up code.
+                Thank you for giving it a try!
             </p>
         </>
     )

@@ -85,6 +85,7 @@ function MazeBoard() {
     return (
 
         <div>
+            <p>The Maze Game is not completed</p>
             <input type={'number'} onChange={(e) => setblocks(e.target.value)}  ></input>
             <div style={boardStyle}>
                 {mazeGrid.map((cell, i) => (<MazeCell cell={cell} key={i} cellNum={i} />))}

@@ -41,7 +41,7 @@ function Snake() {
 
     if (0 > player || player > gridSize - 1) { playerDeath(1) }
     if (player % columnSize === 0 && lastKey === 68) { playerDeath(2) }
-    if ((player - columnSize+1) % columnSize === 0 && lastKey === 65) { playerDeath(3) }
+    if ((player - columnSize + 1) % columnSize === 0 && lastKey === 65) { playerDeath(3) }
     if (playerFollower.includes(player)) { playerDeath(4) }
     if (player === snakeFood) { foodHandler() }
   }, [player]);
@@ -81,11 +81,13 @@ function Snake() {
   }
 
   return (
-    <div style={boardStyle}>
-      {snakeGrid.map((grid, i) => (<SnakeCell snakeFood={snakeFood} playerFollower={playerFollower} key={i} player={player} cellNumber={i} />))}
-    </div>
+    <>
+      <p>The snake game is not completed </p>
+      <div style={boardStyle}>
+        {snakeGrid.map((grid, i) => (<SnakeCell snakeFood={snakeFood} playerFollower={playerFollower} key={i} player={player} cellNumber={i} />))}
+      </div>
+    </>
   )
 }
 
 export default Snake
-                                           
