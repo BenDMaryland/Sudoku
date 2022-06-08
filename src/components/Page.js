@@ -10,11 +10,9 @@ function Page() {
   
     "height": "100vh",
     'width': '100vw',
-
-    
   }
 
-
+//testing
   return (
     <div style={PageStyle}>
       <h1></h1>
