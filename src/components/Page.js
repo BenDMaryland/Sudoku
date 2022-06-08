@@ -19,14 +19,14 @@ function Page() {
     <div style={PageStyle}>
       <h1></h1>
 
-      <Link className="nav-link" to="/"><button color="inherit">Sudoku</button></Link>
+      <Link className="nav-link" to="/sudoku"><button color="inherit">Sudoku</button></Link>
       <Link className="nav-link" to="/snake"><button color="inherit">Snake</button></Link>
       <Link className="nav-link" to="/maze"><button color="inherit">Maze</button></Link>
 
       <Routes>
         <Route exact path='/snake' element={<Snake />} />
         <Route exact path='/maze' element={<React.StrictMode><MazeBoard /></React.StrictMode>} />
-        <Route path='/*' element={<Board />} />
+        <Route path='/sudoku' element={<Board />} />
       </Routes>
 
 
