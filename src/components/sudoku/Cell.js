@@ -94,8 +94,8 @@ function Cell({ solution, number, boardNums, showSolution, NumberHighlighter, ac
         type={"number"}
         maxLength={1}
         value={bigNumber}
+        onChange={(e) => { if ((e.target.value > 0) && (e.target.value < 10)) numHanlder(e) }}
 
-        onChange={(e) => numHanlder(e)}
       ></input>
 
       <div className="notes">

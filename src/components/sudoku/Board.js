@@ -336,54 +336,65 @@ function Board() {
 
     function NumberHighlighter(e, number) {
         e.target.select()
-        setactiveNumber({
-            active: e.target.value,
-            number: number
-        })
+        let Y = Math.floor(number / 9)
+        let X = number - (Y * 9)
+
+
+        console.log(e)
+
+        if (FinalBoard[Y][X] == e.target.value) {
+
+
+
+            setactiveNumber({
+                active: e.target.value,
+                number: number
+            })
 
 
 
 
-        let squareY = Math.floor(number / 9)
-        let squareX = number - (squareY * 9)
-        let row
-        let column
+            let squareY = Math.floor(number / 9)
+            let squareX = number - (squareY * 9)
+            let row
+            let column
 
-        squareY < 3 ?
-            squareX < 3 ? row = 0
-                : squareX < 6 ? row = 1
-                    : row = 2
-            : squareY < 6 ?
-                squareX < 3 ? row = 3
-                    : squareX < 6 ? row = 4
-                        : row = 5
-                :
-                squareX < 3 ? row = 6
-                    : squareX < 6 ? row = 7
-                        : row = 8
+            squareY < 3 ?
+                squareX < 3 ? row = 0
+                    : squareX < 6 ? row = 1
+                        : row = 2
+                : squareY < 6 ?
+                    squareX < 3 ? row = 3
+                        : squareX < 6 ? row = 4
+                            : row = 5
+                    :
+                    squareX < 3 ? row = 6
+                        : squareX < 6 ? row = 7
+                            : row = 8
 
 
-        squareY % 3 === 0 ?
-            squareX % 3 === 0 ? column = 0
-                : squareX % 3 === 1 ? column = 1
-                    : column = 2
-            : squareY % 3 === 1 ?
-                squareX % 3 === 0 ? column = 3
-                    : squareX % 3 === 1 ? column = 4
-                        : column = 5
-                :
-                squareX % 3 === 0 ? column = 6
-                    : squareX % 3 === 1 ? column = 7
-                        : column = 8
+            squareY % 3 === 0 ?
+                squareX % 3 === 0 ? column = 0
+                    : squareX % 3 === 1 ? column = 1
+                        : column = 2
+                : squareY % 3 === 1 ?
+                    squareX % 3 === 0 ? column = 3
+                        : squareX % 3 === 1 ? column = 4
+                            : column = 5
+                    :
+                    squareX % 3 === 0 ? column = 6
+                        : squareX % 3 === 1 ? column = 7
+                            : column = 8
 
-        console.log(squareY)
-        setactiveNumber({
-            active: e.target.value,
-            square: squareY,
-            number: number,
-            column: column,
-            row: row
-        })
+            console.log(squareY)
+            setactiveNumber({
+                active: e.target.value,
+                square: squareY,
+                number: number,
+                column: column,
+                row: row
+            })
+        }
 
     }
 
@@ -432,6 +443,14 @@ function Board() {
             );
         }
     }, [])
+
+    useEffect(() => {
+
+    }, [FinalBoard, currentBoard])
+
+
+
+
 
     return (
         <>
