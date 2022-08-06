@@ -1,0 +1,41 @@
+.calc-buttons-container {
+  grid-row: 2/4;
+    display: grid;
+grid-template-rows: 1fr ;
+grid-template-columns: 3fr 1fr;
+    grid-auto-flow: column;
+    
+}
+
+.numpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    
+}
+
+.calc {
+    width: 10rem;
+}
+
+
+.side-bar-container {
+  
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+
+}
+.top-bar-container{
+grid-template-columns: 2fr 1fr;
+display: grid;
+}
+.span-2 {
+    grid-column: span 2;
+}
+.calc{
+    margin-top: 4rem;
+}
+.showPanel{
+width: 100%;
+height: 2rem;
+border: solid 1px black;
+}

@@ -3,6 +3,7 @@ import Board from './sudoku/Board'
 import { Routes, Route, Link } from "react-router-dom"
 import Snake from './snake/Snake'
 import MazeBoard from './MazeSolver/MazeBoard'
+import Calculator from './calculator/Calculator'
 
 function Page() {
 
@@ -20,11 +21,13 @@ function Page() {
       <Link className="nav-link" to="/Sudoku"><button color="inherit">Sudoku</button></Link>
       <Link className="nav-link" to="/Sudoku/snake"><button color="inherit">Snake</button></Link>
       <Link className="nav-link" to="/Sudoku/maze"><button color="inherit">Maze</button></Link>
+      <Link className="nav-link" to="/Sudoku/calculator"><button color="inherit">Calculator</button></Link>
 
       <Routes>
         <Route exact path='/Sudoku/snake' element={<Snake />} />
         <Route exact path='/Sudoku/maze' element={<React.StrictMode><MazeBoard /></React.StrictMode>} />
         <Route path='/Sudoku' element={<Board />} />
+        <Route path='/Sudoku/calculator' element={<Calculator />} />
       </Routes>
 
 
