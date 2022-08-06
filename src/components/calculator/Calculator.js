@@ -7,8 +7,12 @@ function Calculator() {
 
 
     function clickHandler(e) {
+        console.log(currentValues)
         if (currentValues === undefined) {
             isNaN(e.target.name) ? setcurrentValues() : setcurrentValues(currentValues => (`${e.target.name}`))
+        }
+        else if (isNaN(currentValues.split('').at(-1))   &&  isNaN(e.target.name )){
+            
         }
         else {
             setcurrentValues(currentValues => (`${currentValues}${e.target.name}`))
@@ -16,11 +20,13 @@ function Calculator() {
     }
 
     function calculateHandler(e) {
-        !isNaN(currentValues.split('').at(-1)  )&& setcurrentValues(eval(currentValues))
+      
+        !isNaN(currentValues.split('').at(-1)) && setcurrentValues(eval(currentValues).toString())
     }
 
     function percentHandler(e){
-        !isNaN(currentValues.split('').at(-1)) && setcurrentValues(eval(currentValues*.01))
+ 
+        !isNaN(currentValues.split('').at(-1)) && setcurrentValues(eval(currentValues * .01).toString())
     }
 
     return (
